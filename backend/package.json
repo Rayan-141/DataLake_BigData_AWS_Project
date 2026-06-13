@@ -1,0 +1,18 @@
+{
+  "name": "datalake-analytics-cloud",
+  "version": "1.0.0",
+  "description": "Simple DataLake Analytics Cloud Portal backend",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "@aws-sdk/client-s3": "^3.352.0",
+    "aws-sdk": "^2.1693.0",
+    "cors": "^2.8.6",
+    "dotenv": "^16.6.1",
+    "express": "^4.22.2",
+    "mysql2": "^3.22.5"
+  }
+}

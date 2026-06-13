@@ -1,0 +1,7 @@
+aws_region = "us-east-1"
+aws_ami = "ami-0c02fb55956c7d316"
+instance_type = "t3.micro"
+s3_bucket_name = "datalake-analytics-reports-bucket-unique-2026"
+db_username = "datalakeadmin"
+db_password = "DatalakePass123!"
+db_name = "datalake"

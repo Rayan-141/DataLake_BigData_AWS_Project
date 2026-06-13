@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DataLake Analytics Cloud Portal</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header>
+    <h1>DataLake Analytics Cloud Portal</h1>
+    <p>Admin dashboard for datasets, reports, users, and monitoring.</p>
+  </header>
+
+  <main>
+    <section class="card" id="summary-card">
+      <h2>Analytics Summary</h2>
+      <div class="grid">
+        <div class="metric"><strong id="totalUsers">0</strong><span>Total Users</span></div>
+        <div class="metric"><strong id="totalDatasets">0</strong><span>Total Datasets</span></div>
+        <div class="metric"><strong id="totalStorage">0</strong><span>Total Storage (MB)</span></div>
+        <div class="metric"><strong id="totalReports">0</strong><span>Total Reports</span></div>
+        <div class="metric"><strong id="activeUsers">0</strong><span>Active Users</span></div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Quick Actions</h2>
+      <div class="form-row">
+        <button id="loadUsersBtn" type="button">Load Users</button>
+        <button id="loadDepartmentsBtn" type="button">Load Departments</button>
+        <button id="loadDatasetsBtn" type="button">Load Datasets</button>
+      </div>
+      <div class="tables" id="data-output"></div>
+    </section>
+
+    <section class="card form-card">
+      <h2>Add New User</h2>
+      <form id="userForm">
+        <input type="text" name="name" placeholder="Name" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <select name="role" required>
+          <option value="">Select role</option>
+          <option value="admin">Admin</option>
+          <option value="manager">Manager</option>
+          <option value="analyst">Analyst</option>
+        </select>
+        <button type="submit">Save User</button>
+      </form>
+    </section>
+
+    <section class="card form-card">
+      <h2>Add New Dataset</h2>
+      <form id="datasetForm">
+        <input type="text" name="dataset_name" placeholder="Dataset Name" required />
+        <input type="text" name="department" placeholder="Department" required />
+        <input type="number" name="size_mb" placeholder="Size (MB)" min="0" required />
+        <select name="status" required>
+          <option value="">Status</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <button type="submit">Save Dataset</button>
+      </form>
+    </section>
+
+    <section class="card form-card">
+      <h2>Add New Report</h2>
+      <form id="reportForm">
+        <input type="text" name="report_name" placeholder="Report Name" required />
+        <input type="text" name="department" placeholder="Department" required />
+        <button type="submit">Save Report</button>
+      </form>
+    </section>
+
+    <section class="card form-card">
+      <h2>Upload Report to S3</h2>
+      <form id="uploadReportForm">
+        <input type="text" name="report_name" placeholder="Report Name" required />
+        <input type="text" name="department" placeholder="Department" required />
+        <textarea name="content" rows="4" placeholder="Report content or summary"></textarea>
+        <button type="submit">Upload Report</button>
+      </form>
+    </section>
+
+    <section class="card form-card">
+      <h2>Update Dataset Status</h2>
+      <form id="datasetStatusForm">
+        <input type="number" name="id" placeholder="Dataset ID" required />
+        <select name="status" required>
+          <option value="">Select Status</option>
+          <option value="pending">Pending</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+        </select>
+        <button type="submit">Update Status</button>
+      </form>
+    </section>
+
+    <section class="card form-card">
+      <h2>Add New Task</h2>
+      <form id="taskForm">
+        <input type="text" name="title" placeholder="Task Title" required />
+        <input type="text" name="assigned_to" placeholder="Assigned To" required />
+        <select name="status" required>
+          <option value="">Task Status</option>
+          <option value="open">Open</option>
+          <option value="in-progress">In Progress</option>
+          <option value="completed">Completed</option>
+        </select>
+        <button type="submit">Save Task</button>
+      </form>
+    </section>
+  </main>
+
+  <footer>
+    <p>Simple AWS-focused DataLake Analytics Portal | Use backend APIs and MySQL</p>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>

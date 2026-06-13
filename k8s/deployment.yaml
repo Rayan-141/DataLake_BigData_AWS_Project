@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: datalake-app-deployment
+  labels:
+    app: datalake-app
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: datalake-app
+  template:
+    metadata:
+      labels:
+        app: datalake-app
+    spec:
+      containers:
+        - name: datalake-app
+          image: datalake-app:latest
+          ports:
+            - containerPort: 3000
+          env:
+            - name: NODE_ENV
+              value: "production"
+            - name: DB_HOST
+              value: "mysql-service"
+            - name: DB_USER
+              value: "datalakeadmin"
+            - name: DB_PASSWORD
+              value: "DatalakePass123!"
+            - name: DB_NAME
+              value: "datalake"

@@ -1,0 +1,49 @@
+pipeline {
+  agent any
+
+  environment {
+    APP_NAME = 'datalake-analytics-cloud'
+    DOCKER_IMAGE = 'datalake-app:latest'
+  }
+
+  stages {
+    stage('Checkout') {
+      steps {
+        checkout scm
+      }
+    }
+    stage('Install') {
+      steps {
+        dir('backend') {
+          sh 'npm install'
+        }
+      }
+    }
+    stage('Test') {
+      steps {
+        echo 'No tests configured yet. Add unit tests here.'
+      }
+    }
+    stage('Build Docker Image') {
+      steps {
+        dir('backend') {
+          sh 'docker build -t ${DOCKER_IMAGE} .'
+        }
+      }
+    }
+    stage('Deploy') {
+      steps {
+        echo 'Deployment step placeholder - configure EC2 or Kubernetes deployment here.'
+      }
+    }
+  }
+
+  post {
+    success {
+      echo 'Pipeline completed successfully.'
+    }
+    failure {
+      echo 'Pipeline failed. Check console output.'
+    }
+  }
+}

@@ -1,0 +1,102 @@
+* {
+  box-sizing: border-box;
+}
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f7fb;
+  color: #1f2937;
+}
+header {
+  padding: 24px;
+  background: #0f172a;
+  color: white;
+  text-align: center;
+}
+header h1 {
+  margin: 0 0 8px;
+}
+main {
+  max-width: 1080px;
+  margin: 20px auto;
+  padding: 0 16px;
+}
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 10px rgba(15, 23, 42, 0.08);
+}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  gap: 16px;
+}
+.metric {
+  padding: 18px;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  background: #f8fafc;
+  text-align: center;
+}
+.metric strong {
+  display: block;
+  font-size: 2rem;
+  margin-bottom: 8px;
+  color: #0f172a;
+}
+button,
+input,
+select {
+  font: inherit;
+}
+button {
+  background: #2563eb;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.95;
+}
+.form-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.form-card form {
+  display: grid;
+  gap: 12px;
+}
+input,
+select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+}
+.tables {
+  margin-top: 18px;
+}
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+.table th,
+.table td {
+  border: 1px solid #e2e8f0;
+  padding: 10px;
+  text-align: left;
+}
+.table th {
+  background: #f8fafc;
+}
+footer {
+  text-align: center;
+  padding: 18px;
+  color: #475569;
+}
