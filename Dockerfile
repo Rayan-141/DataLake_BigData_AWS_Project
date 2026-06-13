@@ -13,7 +13,3 @@ WORKDIR /app/backend
 EXPOSE 3000
 
 CMD ["node","server.js"]
-<<<<<<< HEAD
-=======
-
->>>>>>> 7efc36f (Auto-sync: file changes)
