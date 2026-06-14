@@ -38,7 +38,7 @@ let activeUser = null;
 let activeRole = null;
 let activityLog = JSON.parse(localStorage.getItem('activityLog') || '[]');
 const roleLabels = {
-  admin: 'Administrator',
+  admin: 'Admin',
   manager: 'Manager',
   employee: 'Employee',
 };
@@ -52,8 +52,12 @@ function formatTime(date) {
 }
 
 function updateUserHeader() {
-  currentUserName.textContent = activeUser ? activeUser.charAt(0).toUpperCase() + activeUser.slice(1) : 'Guest';
-  userRoleBadge.textContent = activeRole ? roleLabels[activeRole] : 'Visitor';
+  if (currentUserName) {
+    currentUserName.textContent = activeUser ? activeUser.charAt(0).toUpperCase() + activeUser.slice(1) : 'Guest';
+  }
+  if (userRoleBadge) {
+    userRoleBadge.textContent = activeRole ? roleLabels[activeRole] : 'Visitor';
+  }
   // Update the small brand mark at the top-left to reflect the logged-in role (Admin/Manager/Employee)
   try {
     if (brandMark) {
