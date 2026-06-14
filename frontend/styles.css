@@ -41,52 +41,26 @@ button:hover {
 }
 .sidebar {
   width: 280px;
-  background: linear-gradient(180deg, #0f1f34 0%, #172d44 100%);
+  background: #0b1e2b; /* solid darker blue to remove warm/orange glow */
   color: white;
   padding: 32px 22px;
   display: flex;
   flex-direction: column;
   gap: 26px;
-  border-right: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 8px 0 40px rgba(0, 0, 0, 0.08);
-}
-.brand {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  margin-bottom: 14px;
-}
-.brand-mark {
-  width: 50px;
-  height: 50px;
-  border-radius: 14px;
-  background: #ff9900;
-  display: grid;
-  place-items: center;
-  font-weight: 700;
-  color: #1f2937;
-}
-.brand h1 {
-  margin: 0;
-  font-size: 1.2rem;
-}
-.brand p {
-  margin: 0;
-  color: #cbd5e1;
-  font-size: 0.9rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.04);
 }
 .nav-link {
   width: 100%;
   text-align: left;
-  padding: 16px 20px;
+  padding: 14px 18px;
   background: transparent;
   color: #e8f0ff;
-  border-radius: 14px;
+  border-radius: 12px;
   margin-bottom: 12px;
   font-size: 1rem;
   font-weight: 600;
   transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
-  border: 1px solid rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12); /* clear white-ish border */
 }
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.06);
@@ -94,25 +68,51 @@ button:hover {
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
 }
 .nav-link.active {
-  background: rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.12);
   color: white;
 }
-.logout {
-  margin-top: auto;
-  background: #ff7f3d;
-  box-shadow: 0 14px 28px rgba(255, 127, 61, 0.22);
+  color: #cbd5e1;
+  font-size: 0.9rem;
 }
-.logout:hover {
-  opacity: 0.98;
+.metric-card,
+.status-card,
+.backup-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  text-align: center; /* center contents inside the box */
 }
-.content-area {
-  flex: 1;
-  padding: 34px 38px;
-  min-height: 100vh;
-  background: #edf3fb;
+.metric-card span,
+.status-card span,
+.backup-card span,
+.monitor-card span {
+  color: #64748b;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  text-transform: uppercase;
 }
-.content-area.login-mode {
-  display: grid;
+.metric-card strong,
+.status-card strong,
+.backup-card strong,
+.monitor-card strong {
+  font-size: 2rem; /* larger and bolder */
+  font-weight: 700;
+  line-height: 1.05;
+}
+.metric-card,
+.status-card {
+  min-height: 120px;
+}
+.metric-card {
+  padding: 18px 20px;
+}
+.status-card {
+  padding: 20px;
+  border: 1px solid rgba(15,23,42,0.04);
+}
   place-items: center;
   min-height: 100vh;
 }
