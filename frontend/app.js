@@ -32,6 +32,7 @@ const activeUsersText = document.getElementById('kpiUsers');
 const datasetsText = document.getElementById('kpiDatasets');
 const reportsText = document.getElementById('kpiReports');
 const storageText = document.getElementById('kpiStorage');
+const brandMark = document.getElementById('brandMark');
 
 let activeUser = null;
 let activeRole = null;
@@ -53,6 +54,23 @@ function formatTime(date) {
 function updateUserHeader() {
   currentUserName.textContent = activeUser ? activeUser.charAt(0).toUpperCase() + activeUser.slice(1) : 'Guest';
   userRoleBadge.textContent = activeRole ? roleLabels[activeRole] : 'Visitor';
+  // Update the small brand mark at the top-left to reflect the logged-in role (Admin/Manager/Employee)
+  try {
+    if (brandMark) {
+      if (activeRole) {
+        // show short role label (Admin, Manager, Employee)
+        const shortRole = activeRole.charAt(0).toUpperCase() + activeRole.slice(1);
+        brandMark.textContent = shortRole;
+      } else if (activeUser) {
+        // fallback to first letter of username
+        brandMark.textContent = activeUser.charAt(0).toUpperCase();
+      } else {
+        brandMark.textContent = 'DL';
+      }
+    }
+  } catch (e) {
+    console.error('brandMark update failed', e);
+  }
 }
 
 async function loadServices() {
