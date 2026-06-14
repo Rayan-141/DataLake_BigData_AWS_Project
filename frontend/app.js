@@ -309,6 +309,29 @@ logoutBtn.addEventListener('click', () => {
   updateUserHeader();
 });
 
+const loginRoleSelect = document.getElementById('loginRole');
+if (loginRoleSelect) {
+  loginRoleSelect.addEventListener('change', (e) => {
+    const role = e.target.value;
+    const usernameInput = document.getElementById('loginUsername');
+    const passwordInput = document.getElementById('loginPassword');
+    
+    if (role === 'admin') {
+      if (usernameInput) usernameInput.value = 'admin';
+      if (passwordInput) passwordInput.value = 'admin123';
+    } else if (role === 'manager') {
+      if (usernameInput) usernameInput.value = 'manager';
+      if (passwordInput) passwordInput.value = 'manager123';
+    } else if (role === 'employee') {
+      if (usernameInput) usernameInput.value = 'employee';
+      if (passwordInput) passwordInput.value = 'employee123';
+    } else {
+      if (usernameInput) usernameInput.value = '';
+      if (passwordInput) passwordInput.value = '';
+    }
+  });
+}
+
 loginForm.addEventListener('submit', event => {
   event.preventDefault();
   try {
