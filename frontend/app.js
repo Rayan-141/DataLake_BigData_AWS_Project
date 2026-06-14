@@ -122,13 +122,25 @@ async function fetchJson(path, options = {}) {
   return response.json();
 }
 
+function formatStorage(value) {
+  if (value == null || Number.isNaN(Number(value))) {
+    return '0 MB';
+  }
+  const sizeMb = Number(value);
+  if (sizeMb >= 1024) {
+    const sizeGb = sizeMb / 1024;
+    return `${sizeGb.toFixed(1)} GB`;
+  }
+  return `${sizeMb} MB`;
+}
+
 async function loadSummary() {
   try {
     const data = await fetchJson('/api/summary');
     summaryElements.kpiUsers.textContent = data.totalUsers ?? summaryElements.kpiUsers.textContent;
     summaryElements.kpiDatasets.textContent = data.totalDatasets ?? summaryElements.kpiDatasets.textContent;
     summaryElements.kpiReports.textContent = data.totalReports ?? summaryElements.kpiReports.textContent;
-    summaryElements.kpiStorage.textContent = data.totalStorage ?? summaryElements.kpiStorage.textContent;
+    summaryElements.kpiStorage.textContent = formatStorage(data.totalStorage);
   } catch (error) {
     console.error(error);
   }
@@ -216,6 +228,11 @@ function showPage(pageId, title) {
   pageTitle.textContent = title;
   const activeLink = navLinks.find(link => link.dataset.page === pageId.replace('Page', ''));
   if (activeLink) activeLink.classList.add('active');
+  if (pageId === 'dashboardPage') {
+    topBar.classList.add('hidden');
+  } else {
+    topBar.classList.remove('hidden');
+  }
 }
 
 function setAuthenticated(authenticated) {
