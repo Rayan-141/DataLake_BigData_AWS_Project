@@ -51,6 +51,39 @@ button:hover {
   box-shadow: none;
   background-image: none;
 }
+
+/* Brand area: center the logo/title/subtitle and reduce spacing */
+.brand {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* center horizontally */
+  text-align: center;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.brand-mark {
+  width: auto;
+  height: auto;
+  font-size: 1rem;
+  font-weight: 700;
+  color: #e6eef8;
+  padding: 4px 6px;
+}
+.brand h1,
+.brand p {
+  margin: 0;
+  line-height: 1.05;
+}
+/* Make DataLake and Cloud Platform the same visual size and closer together */
+.brand h1 {
+  font-size: 2.2rem;
+  font-weight: 800;
+}
+.brand p {
+  font-size: 2.2rem;
+  font-weight: 600;
+  opacity: 0.95;
+}
 .nav-link {
   width: 100%;
   text-align: left;
@@ -396,6 +429,10 @@ button:hover {
   }
   .sidebar {
     width: 100%;
+  }
+  .brand h1,
+  .brand p {
+    font-size: 2.4rem; /* slightly larger on mobile for visual balance */
   }
   .content-area {
     padding: 18px;
