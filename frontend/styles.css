@@ -76,11 +76,11 @@ button:hover {
 }
 /* Make DataLake and Cloud Platform the same visual size and closer together */
 .brand h1 {
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   font-weight: 800;
 }
 .brand p {
-  font-size: 2.2rem;
+  font-size: 1.6rem;
   font-weight: 600;
   opacity: 0.95;
 }
@@ -432,7 +432,7 @@ button:hover {
   }
   .brand h1,
   .brand p {
-    font-size: 2.4rem; /* slightly larger on mobile for visual balance */
+    font-size: 1.8rem; /* slightly larger on mobile for visual balance */
   }
   .content-area {
     padding: 18px;
