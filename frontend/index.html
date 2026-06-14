@@ -3,120 +3,171 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>DataLake Analytics Cloud Portal</title>
+  <title>DataLake Cloud Platform</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
-  <header>
-    <h1>DataLake Analytics Cloud Portal</h1>
-    <p>Admin dashboard for datasets, reports, users, and monitoring.</p>
-  </header>
-
-  <main>
-    <section class="card" id="summary-card">
-      <h2>Analytics Summary</h2>
-      <div class="grid">
-        <div class="metric"><strong id="totalUsers">0</strong><span>Total Users</span></div>
-        <div class="metric"><strong id="totalDatasets">0</strong><span>Total Datasets</span></div>
-        <div class="metric"><strong id="totalStorage">0</strong><span>Total Storage (MB)</span></div>
-        <div class="metric"><strong id="totalReports">0</strong><span>Total Reports</span></div>
-        <div class="metric"><strong id="activeUsers">0</strong><span>Active Users</span></div>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">DL</div>
+        <div>
+          <h1>DataLake</h1>
+          <p>Cloud Platform</p>
+        </div>
       </div>
-    </section>
+      <nav>
+        <button class="nav-link" data-page="dashboard">Dashboard</button>
+        <button class="nav-link" data-page="monitoring">Monitoring</button>
+        <button class="nav-link" data-page="reports">Reports</button>
+        <button class="nav-link" data-page="users">Users</button>
+        <button class="nav-link" data-page="backup">Backup</button>
+      </nav>
+      <button class="nav-link logout" id="logoutBtn">Logout</button>
+    </aside>
 
-    <section class="card">
-      <h2>Quick Actions</h2>
-      <div class="form-row">
-        <button id="loadUsersBtn" type="button">Load Users</button>
-        <button id="loadDepartmentsBtn" type="button">Load Departments</button>
-        <button id="loadDatasetsBtn" type="button">Load Datasets</button>
+    <div class="content-area">
+      <div class="top-bar">
+        <div class="page-title" id="pageTitle">Login</div>
       </div>
-      <div class="tables" id="data-output"></div>
-    </section>
 
-    <section class="card form-card">
-      <h2>Add New User</h2>
-      <form id="userForm">
-        <input type="text" name="name" placeholder="Name" required />
-        <input type="email" name="email" placeholder="Email" required />
-        <select name="role" required>
-          <option value="">Select role</option>
-          <option value="admin">Admin</option>
-          <option value="manager">Manager</option>
-          <option value="analyst">Analyst</option>
-        </select>
-        <button type="submit">Save User</button>
-      </form>
-    </section>
+      <section class="page active" id="loginPage">
+        <div class="login-card">
+          <h2>DataLake Cloud Platform</h2>
+          <p>Enter your credentials to continue.</p>
+          <form id="loginForm">
+            <label>Username</label>
+            <input type="text" id="loginUsername" placeholder="admin" required />
+            <label>Password</label>
+            <input type="password" id="loginPassword" placeholder="admin123" required />
+            <label>Role</label>
+            <select id="loginRole" required>
+              <option value="">Select Role</option>
+              <option value="admin">Admin</option>
+              <option value="manager">Manager</option>
+              <option value="employee">Employee</option>
+            </select>
+            <button type="submit">Login</button>
+          </form>
+        </div>
+      </section>
 
-    <section class="card form-card">
-      <h2>Add New Dataset</h2>
-      <form id="datasetForm">
-        <input type="text" name="dataset_name" placeholder="Dataset Name" required />
-        <input type="text" name="department" placeholder="Department" required />
-        <input type="number" name="size_mb" placeholder="Size (MB)" min="0" required />
-        <select name="status" required>
-          <option value="">Status</option>
-          <option value="pending">Pending</option>
-          <option value="approved">Approved</option>
-          <option value="rejected">Rejected</option>
-        </select>
-        <button type="submit">Save Dataset</button>
-      </form>
-    </section>
+      <section class="page" id="dashboardPage">
+        <div class="section-header">
+          <h2>Dashboard</h2>
+        </div>
+        <div class="grid grid-4">
+          <div class="metric-card">
+            <span>Users</span>
+            <strong id="kpiUsers">150</strong>
+          </div>
+          <div class="metric-card">
+            <span>Datasets</span>
+            <strong id="kpiDatasets">40</strong>
+          </div>
+          <div class="metric-card">
+            <span>Reports</span>
+            <strong id="kpiReports">15</strong>
+          </div>
+          <div class="metric-card">
+            <span>Storage</span>
+            <strong id="kpiStorage">500 GB</strong>
+          </div>
+        </div>
 
-    <section class="card form-card">
-      <h2>Add New Report</h2>
-      <form id="reportForm">
-        <input type="text" name="report_name" placeholder="Report Name" required />
-        <input type="text" name="department" placeholder="Department" required />
-        <button type="submit">Save Report</button>
-      </form>
-    </section>
+        <div class="section-header">
+          <h3>Infrastructure Status</h3>
+        </div>
+        <div class="grid grid-5">
+          <div class="status-card"><span>Docker</span><strong>Running</strong></div>
+          <div class="status-card"><span>Jenkins</span><strong>Running</strong></div>
+          <div class="status-card"><span>Kubernetes</span><strong>Running</strong></div>
+          <div class="status-card"><span>Prometheus</span><strong>Running</strong></div>
+          <div class="status-card"><span>Grafana</span><strong>Running</strong></div>
+        </div>
 
-    <section class="card form-card">
-      <h2>Upload Report to S3</h2>
-      <form id="uploadReportForm">
-        <input type="text" name="report_name" placeholder="Report Name" required />
-        <input type="text" name="department" placeholder="Department" required />
-        <textarea name="content" rows="4" placeholder="Report content or summary"></textarea>
-        <button type="submit">Upload Report</button>
-      </form>
-    </section>
+        <div class="section-header">
+          <h3>Recent Activity</h3>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr><th>Activity</th><th>Status</th><th>Time</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Dataset Uploaded</td><td>Success</td><td>10 min ago</td></tr>
+              <tr><td>Backup Created</td><td>Success</td><td>1 hour ago</td></tr>
+              <tr><td>Report Generated</td><td>Success</td><td>2 hours ago</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-    <section class="card form-card">
-      <h2>Update Dataset Status</h2>
-      <form id="datasetStatusForm">
-        <input type="number" name="id" placeholder="Dataset ID" required />
-        <select name="status" required>
-          <option value="">Select Status</option>
-          <option value="pending">Pending</option>
-          <option value="approved">Approved</option>
-          <option value="rejected">Rejected</option>
-        </select>
-        <button type="submit">Update Status</button>
-      </form>
-    </section>
+      <section class="page" id="monitoringPage">
+        <div class="section-header">
+          <h2>Monitoring</h2>
+        </div>
+        <div class="monitor-row">
+          <div class="monitor-card"><span>CPU Usage</span><strong>45%</strong><div class="progress"><div class="progress-fill" style="width:45%"></div></div></div>
+          <div class="monitor-card"><span>RAM Usage</span><strong>60%</strong><div class="progress"><div class="progress-fill" style="width:60%"></div></div></div>
+          <div class="monitor-card"><span>Disk Usage</span><strong>70%</strong><div class="progress"><div class="progress-fill" style="width:70%"></div></div></div>
+          <div class="monitor-card"><span>Network Usage</span><strong>35%</strong><div class="progress"><div class="progress-fill" style="width:35%"></div></div></div>
+        </div>
+      </section>
 
-    <section class="card form-card">
-      <h2>Add New Task</h2>
-      <form id="taskForm">
-        <input type="text" name="title" placeholder="Task Title" required />
-        <input type="text" name="assigned_to" placeholder="Assigned To" required />
-        <select name="status" required>
-          <option value="">Task Status</option>
-          <option value="open">Open</option>
-          <option value="in-progress">In Progress</option>
-          <option value="completed">Completed</option>
-        </select>
-        <button type="submit">Save Task</button>
-      </form>
-    </section>
-  </main>
+      <section class="page" id="reportsPage">
+        <div class="section-header">
+          <h2>Reports</h2>
+        </div>
+        <div class="button-row">
+          <button>Generate Monthly Report</button>
+          <button>Generate User Report</button>
+          <button>Generate Server Report</button>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Report</th><th>Department</th><th>Date</th></tr></thead>
+            <tbody>
+              <tr><td>Monthly Usage</td><td>Analytics</td><td>2026-06-14</td></tr>
+              <tr><td>User Summary</td><td>Operations</td><td>2026-06-13</td></tr>
+              <tr><td>Server Health</td><td>Infrastructure</td><td>2026-06-12</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
 
-  <footer>
-    <p>Simple AWS-focused DataLake Analytics Portal | Use backend APIs and MySQL</p>
-  </footer>
+      <section class="page" id="usersPage">
+        <div class="section-header">
+          <h2>Users</h2>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+            <tbody>
+              <tr><td>Admin User</td><td>admin@example.com</td><td>Admin</td></tr>
+              <tr><td>Manager One</td><td>manager@example.com</td><td>Manager</td></tr>
+              <tr><td>Analyst One</td><td>analyst@example.com</td><td>Employee</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="page" id="backupPage">
+        <div class="section-header">
+          <h2>Backup</h2>
+        </div>
+        <div class="grid grid-3">
+          <div class="backup-card"><span>Last Backup</span><strong>2026-06-14 01:00</strong></div>
+          <div class="backup-card"><span>Backup Size</span><strong>1.2 GB</strong></div>
+          <div class="backup-card"><span>Restore Point</span><strong>RP-2026-06-14</strong></div>
+        </div>
+        <div class="button-row">
+          <button id="createBackupBtn">Create Backup</button>
+          <button id="restoreBackupBtn">Restore Backup</button>
+        </div>
+      </section>
+    </div>
+  </div>
 
   <script src="app.js"></script>
 </body>

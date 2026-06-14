@@ -1,9 +1,20 @@
+const pageTitle = document.getElementById('pageTitle');
+const pages = Array.from(document.querySelectorAll('.page'));
+const navLinks = Array.from(document.querySelectorAll('.nav-link'));
+const loginPage = document.getElementById('loginPage');
+const dashboardPage = document.getElementById('dashboardPage');
+const monitoringPage = document.getElementById('monitoringPage');
+const reportsPage = document.getElementById('reportsPage');
+const usersPage = document.getElementById('usersPage');
+const backupPage = document.getElementById('backupPage');
+const logoutBtn = document.getElementById('logoutBtn');
+const loginForm = document.getElementById('loginForm');
+
 const summaryElements = {
-  totalUsers: document.getElementById('totalUsers'),
-  totalDatasets: document.getElementById('totalDatasets'),
-  totalStorage: document.getElementById('totalStorage'),
-  totalReports: document.getElementById('totalReports'),
-  activeUsers: document.getElementById('activeUsers'),
+  kpiUsers: document.getElementById('kpiUsers'),
+  kpiDatasets: document.getElementById('kpiDatasets'),
+  kpiReports: document.getElementById('kpiReports'),
+  kpiStorage: document.getElementById('kpiStorage'),
 };
 
 const output = document.getElementById('data-output');
@@ -20,11 +31,10 @@ async function fetchJson(path, options = {}) {
 async function loadSummary() {
   try {
     const data = await fetchJson('/api/summary');
-    summaryElements.totalUsers.textContent = data.totalUsers;
-    summaryElements.totalDatasets.textContent = data.totalDatasets;
-    summaryElements.totalStorage.textContent = data.totalStorage;
-    summaryElements.totalReports.textContent = data.totalReports;
-    summaryElements.activeUsers.textContent = data.activeUsers;
+    summaryElements.kpiUsers.textContent = data.totalUsers ?? summaryElements.kpiUsers.textContent;
+    summaryElements.kpiDatasets.textContent = data.totalDatasets ?? summaryElements.kpiDatasets.textContent;
+    summaryElements.kpiReports.textContent = data.totalReports ?? summaryElements.kpiReports.textContent;
+    summaryElements.kpiStorage.textContent = data.totalStorage ?? summaryElements.kpiStorage.textContent;
   } catch (error) {
     console.error(error);
   }
@@ -79,6 +89,7 @@ async function loadDatasets() {
 
 function attachForm(formId, endpoint, method = 'POST') {
   const form = document.getElementById(formId);
+  if (!form) return;
   form.addEventListener('submit', async event => {
     event.preventDefault();
     const formData = new FormData(form);
@@ -103,9 +114,46 @@ function attachForm(formId, endpoint, method = 'POST') {
   });
 }
 
-document.getElementById('loadUsersBtn').addEventListener('click', loadUsers);
-document.getElementById('loadDepartmentsBtn').addEventListener('click', loadDepartments);
-document.getElementById('loadDatasetsBtn').addEventListener('click', loadDatasets);
+function showPage(pageId, title) {
+  pages.forEach(page => page.classList.remove('active'));
+  navLinks.forEach(link => link.classList.remove('active'));
+  const page = document.getElementById(pageId);
+  if (page) page.classList.add('active');
+  pageTitle.textContent = title;
+  const activeLink = navLinks.find(link => link.dataset.page === pageId.replace('Page', ''));
+  if (activeLink) activeLink.classList.add('active');
+}
+
+navLinks.forEach(link => {
+  link.addEventListener('click', () => {
+    const page = `${link.dataset.page}Page`;
+    showPage(page, link.textContent);
+  });
+});
+
+logoutBtn.addEventListener('click', () => {
+  showPage('loginPage', 'Login');
+});
+
+loginForm.addEventListener('submit', event => {
+  event.preventDefault();
+  const username = document.getElementById('loginUsername').value.trim();
+  const password = document.getElementById('loginPassword').value.trim();
+  const role = document.getElementById('loginRole').value;
+
+  const validUsers = {
+    admin: 'admin123',
+    manager: 'manager123',
+    employee: 'employee123',
+  };
+
+  if (validUsers[username] === password && role) {
+    showPage('dashboardPage', 'Dashboard');
+    return;
+  }
+  alert('Invalid login. Use admin/admin123, manager/manager123, or employee/employee123.');
+});
+
 attachForm('userForm', 'users');
 attachForm('datasetForm', 'datasets');
 attachForm('reportForm', 'reports');
@@ -113,4 +161,5 @@ attachForm('uploadReportForm', 'reports/upload');
 attachForm('datasetStatusForm', 'datasets/:id/status', 'PUT');
 attachForm('taskForm', 'tasks');
 
-loadSummary();
+// Default page when logged in
+showPage('loginPage', 'Login');
