@@ -3,12 +3,14 @@ const path = require('path');
 const dotenv = require('dotenv');
 const api = require('./routes');
 const logger = require('./logs/logger');
+const morgan = require('morgan');
 
 dotenv.config();
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
+app.use(morgan("combined"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use('/api', api);
