@@ -96,21 +96,35 @@ function renderActivity() {
     tableBody.innerHTML = '<tr><td colspan="4">Sign in to see your recent activity.</td></tr>';
     return;
   }
-
-  const userEvents = activityLog.filter(entry => entry.user === activeUser);
+  // map to include original indexes so we can remove entries
+  const userEvents = activityLog.map((entry, idx) => ({ entry, idx })).filter(item => item.entry.user === activeUser);
   if (userEvents.length === 0) {
-    tableBody.innerHTML = '<tr><td colspan="4">No activity recorded yet for this account.</td></tr>';
+    tableBody.innerHTML = '<tr><td colspan="5">No activity recorded yet for this account.</td></tr>';
     return;
   }
 
-  tableBody.innerHTML = userEvents.slice(0, 8).map(entry => `
+  tableBody.innerHTML = userEvents.slice(0, 12).map(item => {
+    const entry = item.entry;
+    const idx = item.idx;
+    return `
     <tr>
       <td>${entry.activity}</td>
       <td>${entry.user}</td>
       <td>${entry.status}</td>
       <td>${entry.date} ${entry.time}</td>
+      <td><button class="small-button" onclick="removeActivity(${idx})">Remove</button></td>
     </tr>
-  `).join('');
+  `;
+  }).join('');
+}
+
+function removeActivity(globalIndex) {
+  if (typeof globalIndex !== 'number') return;
+  // confirm before deleting
+  if (!confirm('Remove this activity?')) return;
+  activityLog.splice(globalIndex, 1);
+  saveActivity();
+  renderActivity();
 }
 
 async function fetchJson(path, options = {}) {
