@@ -18,6 +18,9 @@ exports.uploadDataset = async (req, res) => {
       Body: fs.createReadStream(req.file.path)
     });
 
+    console.log("Controller reached");
+    console.log(req.file);
+
     await s3.send(command);
 
     res.json({

@@ -306,15 +306,7 @@ router.put('/tasks/:id/status', async (req, res) => {
 router.post(
   "/datasets/upload",
   upload.single("file"),
-  (req, res) => {
-    console.log("FILE RECEIVED");
-    console.log(req.file);
-
-    res.json({
-      success: true,
-      file: req.file
-    });
-  }
+  uploadDataset
 );
 
 module.exports = router;
