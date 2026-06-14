@@ -317,17 +317,17 @@ if (loginRoleSelect) {
     const passwordInput = document.getElementById('loginPassword');
     
     if (role === 'admin') {
-      if (usernameInput) usernameInput.value = 'admin';
-      if (passwordInput) passwordInput.value = 'admin123';
+      if (usernameInput) { usernameInput.value = ''; usernameInput.placeholder = 'admin'; }
+      if (passwordInput) { passwordInput.value = ''; passwordInput.placeholder = 'admin123'; }
     } else if (role === 'manager') {
-      if (usernameInput) usernameInput.value = 'manager';
-      if (passwordInput) passwordInput.value = 'manager123';
+      if (usernameInput) { usernameInput.value = ''; usernameInput.placeholder = 'manager'; }
+      if (passwordInput) { passwordInput.value = ''; passwordInput.placeholder = 'manager123'; }
     } else if (role === 'employee') {
-      if (usernameInput) usernameInput.value = 'employee';
-      if (passwordInput) passwordInput.value = 'employee123';
+      if (usernameInput) { usernameInput.value = ''; usernameInput.placeholder = 'employee'; }
+      if (passwordInput) { passwordInput.value = ''; passwordInput.placeholder = 'employee123'; }
     } else {
-      if (usernameInput) usernameInput.value = '';
-      if (passwordInput) passwordInput.value = '';
+      if (usernameInput) { usernameInput.value = ''; usernameInput.placeholder = 'Enter username'; }
+      if (passwordInput) { passwordInput.value = ''; passwordInput.placeholder = 'Enter password'; }
     }
   });
 }
