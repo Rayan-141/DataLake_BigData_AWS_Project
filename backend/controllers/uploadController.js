@@ -1,6 +1,7 @@
 const { PutObjectCommand } = require("@aws-sdk/client-s3");
 const fs = require("fs");
 const s3 = require("../s3");
+const db = require("../db/connection");
 
 exports.uploadDataset = async (req, res) => {
   try {
@@ -22,6 +23,18 @@ exports.uploadDataset = async (req, res) => {
     console.log(req.file);
 
     await s3.send(command);
+
+    await db.execute(
+      `
+      INSERT INTO uploaded_datasets
+      (file_name, s3_key)
+      VALUES (?,?)
+      `,
+      [
+       req.file.originalname,
+       command.input.Key
+      ]
+    );
 
     res.json({
       success: true,

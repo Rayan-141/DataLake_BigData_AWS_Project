@@ -5,6 +5,7 @@ const { exec } = require('child_process');
 const upload = require("./upload");
 const { uploadDataset } = require("./controllers/uploadController");
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const db = require("./db/connection");
 const router = express.Router();
 
 const dbConfig = {
@@ -308,5 +309,16 @@ router.post(
   upload.single("file"),
   uploadDataset
 );
+
+router.get("/datasets/list", async (req,res)=>{
+
+ const [rows] =
+ await db.execute(
+ "SELECT * FROM uploaded_datasets ORDER BY id DESC"
+ );
+
+ res.json(rows);
+
+});
 
 module.exports = router;
