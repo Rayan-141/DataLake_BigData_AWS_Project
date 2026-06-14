@@ -4,6 +4,7 @@ const net = require('net');
 const { exec } = require('child_process');
 const upload = require("./upload");
 const { uploadDataset } = require("./controllers/uploadController");
+const logger = require("./logs/logger");
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const db = require("./db/connection");
 const router = express.Router();
@@ -322,6 +323,8 @@ router.get("/datasets/list", async (req,res)=>{
 });
 
 router.get("/health", (req,res)=>{
+
+  logger.info("Health Check Called");
 
   res.json({
     status:"UP",
