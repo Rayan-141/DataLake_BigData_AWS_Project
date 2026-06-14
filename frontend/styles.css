@@ -71,9 +71,6 @@ button:hover {
   background: rgba(255,255,255,0.12);
   color: white;
 }
-  color: #cbd5e1;
-  font-size: 0.9rem;
-}
 .metric-card,
 .status-card,
 .backup-card {
@@ -113,7 +110,9 @@ button:hover {
   padding: 20px;
   border: 1px solid rgba(15,23,42,0.04);
 }
-  place-items: center;
+.content-area {
+  flex: 1; /* take remaining space beside sidebar */
+  padding: 28px 36px;
   min-height: 100vh;
 }
 .top-bar {
@@ -209,12 +208,19 @@ button:hover {
 .login-card {
   max-width: 520px;
   width: 100%;
-  margin: 80px auto;
+  margin: 0 auto;
   text-align: left;
   padding: 44px;
   border-radius: 26px;
   background: #ffffff;
   box-shadow: 0 24px 50px rgba(23, 43, 77, 0.12);
+}
+
+.content-area.login-mode {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 36px;
 }
 .login-card h2 {
   margin: 0 0 10px;
