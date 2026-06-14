@@ -250,22 +250,27 @@ function showPage(pageId, title) {
 }
 
 function setAuthenticated(authenticated) {
-  if (authenticated) {
-    sidebar.classList.remove('hidden');
-    topBar.classList.remove('hidden');
-    mainContent.classList.remove('login-mode');
-    showPage('dashboardPage', 'Dashboard');
-    updateUserHeader();
-    loadSummary();
-    loadServices();
-    renderActivity();
-  } else {
-    sidebar.classList.add('hidden');
-    topBar.classList.add('hidden');
-    mainContent.classList.add('login-mode');
-    showPage('loginPage', 'Login');
-    updateUserHeader();
-    renderActivity();
+  try {
+    console.debug('setAuthenticated ->', authenticated);
+    if (authenticated) {
+      if (sidebar && sidebar.classList) sidebar.classList.remove('hidden');
+      if (topBar && topBar.classList) topBar.classList.remove('hidden');
+      if (mainContent && mainContent.classList) mainContent.classList.remove('login-mode');
+      try { showPage('dashboardPage', 'Dashboard'); } catch (e) { console.error('showPage failed', e); }
+      try { updateUserHeader(); } catch (e) { console.error('updateUserHeader failed', e); }
+      try { loadSummary(); } catch (e) { console.error('loadSummary failed', e); }
+      try { loadServices(); } catch (e) { console.error('loadServices failed', e); }
+      try { renderActivity(); } catch (e) { console.error('renderActivity failed', e); }
+    } else {
+      if (sidebar && sidebar.classList) sidebar.classList.add('hidden');
+      if (topBar && topBar.classList) topBar.classList.add('hidden');
+      if (mainContent && mainContent.classList) mainContent.classList.add('login-mode');
+      try { showPage('loginPage', 'Login'); } catch (e) { console.error('showPage failed', e); }
+      try { updateUserHeader(); } catch (e) { console.error('updateUserHeader failed', e); }
+      try { renderActivity(); } catch (e) { console.error('renderActivity failed', e); }
+    }
+  } catch (err) {
+    console.error('setAuthenticated top-level error', err);
   }
 }
 
@@ -288,25 +293,58 @@ logoutBtn.addEventListener('click', () => {
 
 loginForm.addEventListener('submit', event => {
   event.preventDefault();
-  const username = document.getElementById('loginUsername').value.trim();
-  const password = document.getElementById('loginPassword').value.trim();
-  const role = document.getElementById('loginRole').value;
+  try {
+    const username = (document.getElementById('loginUsername')?.value || '').trim();
+    const password = (document.getElementById('loginPassword')?.value || '').trim();
+    const role = (document.getElementById('loginRole')?.value || '').trim();
 
-  const validUsers = {
-    admin: 'admin123',
-    manager: 'manager123',
-    employee: 'employee123',
-  };
+    if (!username || !password) {
+      alert('Please enter username and password.');
+      return;
+    }
+    if (!role) {
+      alert('Please select a role.');
+      return;
+    }
 
-  if (validUsers[username] === password && role) {
-    activeUser = username;
-    activeRole = role;
-    updateUserHeader();
-    setAuthenticated(true);
-    addActivity('Login', 'Success');
-    return;
+    const validUsers = {
+      admin: 'admin123',
+      manager: 'manager123',
+      employee: 'employee123',
+    };
+
+    // Debug info for development - will not break in production
+    console.debug('Attempt login', { username, role });
+
+    if (validUsers[username] === password) {
+      activeUser = username;
+      activeRole = role;
+      try {
+        updateUserHeader();
+      } catch (err) {
+        console.error('updateUserHeader failed', err);
+      }
+      // call setAuthenticated and addActivity in guarded blocks so we surface where failures happen
+      try {
+        setAuthenticated(true);
+      } catch (err) {
+        console.error('setAuthenticated failed', err);
+        alert('Login partial success: UI initialization failed. Check console.');
+        return;
+      }
+      try {
+        addActivity('Login', 'Success');
+      } catch (err) {
+        console.error('addActivity failed', err);
+      }
+      return;
+    }
+
+    alert('Invalid login. Use admin/admin123, manager/manager123, or employee/employee123.');
+  } catch (err) {
+    console.error('Login handler error', err);
+    alert('An error occurred during login. Check console for details.');
   }
-  alert('Invalid login. Use admin/admin123, manager/manager123, or employee/employee123.');
 });
 
 attachForm('userForm', 'users');

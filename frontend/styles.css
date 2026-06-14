@@ -48,6 +48,8 @@ button:hover {
   flex-direction: column;
   gap: 26px;
   border-right: 1px solid rgba(255, 255, 255, 0.04);
+  box-shadow: none;
+  background-image: none;
 }
 .nav-link {
   width: 100%;
@@ -61,15 +63,27 @@ button:hover {
   font-weight: 600;
   transition: transform 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
   border: 1px solid rgba(255,255,255,0.12); /* clear white-ish border */
+  box-shadow: none;
 }
 .nav-link:hover {
   background: rgba(255, 255, 255, 0.06);
   transform: translateX(1px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.06);
 }
 .nav-link.active {
   background: rgba(255,255,255,0.12);
   color: white;
+}
+/* make logout sit at the bottom of the sidebar and visually distinct */
+.sidebar .logout {
+  margin-top: auto;
+  background: #ff9900;
+  color: #fff;
+  border: none;
+  box-shadow: 0 12px 30px rgba(255,153,0,0.16);
+}
+.sidebar .logout:hover {
+  opacity: 0.98;
 }
 .metric-card,
 .status-card,
@@ -114,6 +128,10 @@ button:hover {
   flex: 1; /* take remaining space beside sidebar */
   padding: 28px 36px;
   min-height: 100vh;
+}
+
+.top-bar.hidden {
+  display: none !important;
 }
 .top-bar {
   display: flex;
@@ -221,6 +239,17 @@ button:hover {
   align-items: center;
   justify-content: center;
   padding: 60px 36px;
+}
+
+.content-area.login-mode .page-title {
+  display: none !important;
+}
+
+.dashboard-title {
+  margin: 0;
+  font-size: 1.6rem;
+  color: #0f172a;
+  font-weight: 800;
 }
 .login-card h2 {
   margin: 0 0 10px;
