@@ -2,6 +2,8 @@ const express = require('express');
 const mysql = require('mysql2/promise');
 const net = require('net');
 const { exec } = require('child_process');
+const upload = require("./upload");
+const { uploadDataset } = require("./controllers/uploadController");
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const router = express.Router();
 
@@ -300,5 +302,11 @@ router.put('/tasks/:id/status', async (req, res) => {
     res.status(500).json({ error: 'Unable to update task status' });
   }
 });
+
+router.post(
+  "/datasets/upload",
+  upload.single("file"),
+  uploadDataset
+);
 
 module.exports = router;
