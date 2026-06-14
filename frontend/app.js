@@ -23,6 +23,15 @@ const summaryElements = {
 const output = document.getElementById('data-output');
 const currentUserName = document.getElementById('currentUserName');
 const userRoleBadge = document.getElementById('userRoleBadge');
+const dockerStatus = document.getElementById('dockerStatus');
+const jenkinsStatus = document.getElementById('jenkinsStatus');
+const k8sStatus = document.getElementById('k8sStatus');
+const prometheusStatus = document.getElementById('prometheusStatus');
+const grafanaStatus = document.getElementById('grafanaStatus');
+const activeUsersText = document.getElementById('kpiUsers');
+const datasetsText = document.getElementById('kpiDatasets');
+const reportsText = document.getElementById('kpiReports');
+const storageText = document.getElementById('kpiStorage');
 
 let activeUser = null;
 let activeRole = null;
@@ -46,17 +55,22 @@ function updateUserHeader() {
   userRoleBadge.textContent = activeRole ? roleLabels[activeRole] : 'Visitor';
 }
 
-function updateDashboardMetrics() {
-  const metrics = {
-    admin: { users: 150, datasets: 40, reports: 15, storage: '500 GB' },
-    manager: { users: 85, datasets: 18, reports: 9, storage: '220 GB' },
-    employee: { users: 28, datasets: 7, reports: 4, storage: '95 GB' },
-  };
-  const roleData = metrics[activeRole] || metrics.employee;
-  summaryElements.kpiUsers.textContent = roleData.users;
-  summaryElements.kpiDatasets.textContent = roleData.datasets;
-  summaryElements.kpiReports.textContent = roleData.reports;
-  summaryElements.kpiStorage.textContent = roleData.storage;
+async function loadServices() {
+  try {
+    const data = await fetchJson('/api/services');
+    dockerStatus.textContent = data.docker;
+    jenkinsStatus.textContent = data.jenkins;
+    k8sStatus.textContent = data.kubernetes;
+    prometheusStatus.textContent = data.prometheus;
+    grafanaStatus.textContent = data.grafana;
+  } catch (error) {
+    dockerStatus.textContent = 'Not Running';
+    jenkinsStatus.textContent = 'Not Running';
+    k8sStatus.textContent = 'Not Running';
+    prometheusStatus.textContent = 'Not Running';
+    grafanaStatus.textContent = 'Not Running';
+    console.error('Failed to load service status', error);
+  }
 }
 
 function addActivity(action, status) {
@@ -211,7 +225,8 @@ function setAuthenticated(authenticated) {
     mainContent.classList.remove('login-mode');
     showPage('dashboardPage', 'Dashboard');
     updateUserHeader();
-    updateDashboardMetrics();
+    loadSummary();
+    loadServices();
     renderActivity();
   } else {
     sidebar.classList.add('hidden');

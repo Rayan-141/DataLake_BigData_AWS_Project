@@ -1,5 +1,7 @@
 const express = require('express');
 const mysql = require('mysql2/promise');
+const net = require('net');
+const { exec } = require('child_process');
 const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
 const router = express.Router();
 
@@ -17,6 +19,49 @@ const s3Client = new S3Client({ region: process.env.AWS_REGION || 'us-east-1' })
 async function getConnection() {
   const conn = await mysql.createConnection(dbConfig);
   return conn;
+}
+
+function testPort(port, host = '127.0.0.1') {
+  return new Promise(resolve => {
+    const socket = new net.Socket();
+    socket.setTimeout(1200);
+    socket.once('connect', () => {
+      socket.destroy();
+      resolve(true);
+    });
+    socket.once('timeout', () => {
+      socket.destroy();
+      resolve(false);
+    });
+    socket.once('error', () => {
+      resolve(false);
+    });
+    socket.connect(port, host);
+  });
+}
+
+function runCommand(cmd) {
+  return new Promise(resolve => {
+    exec(cmd, { timeout: 3000 }, error => {
+      resolve(!error);
+    });
+  });
+}
+
+async function getServiceStatus() {
+  const dockerRunning = process.env.DOCKER_RUNNING === 'true' || await runCommand('docker info');
+  const jenkinsRunning = process.env.JENKINS_RUNNING === 'true' || await testPort(8080);
+  const kubernetesRunning = process.env.K8S_RUNNING === 'true' || await testPort(6443);
+  const prometheusRunning = process.env.PROMETHEUS_RUNNING === 'true' || await testPort(9090);
+  const grafanaRunning = process.env.GRAFANA_RUNNING === 'true' || await testPort(3000);
+
+  return {
+    docker: dockerRunning ? 'Running' : 'Not Running',
+    jenkins: jenkinsRunning ? 'Running' : 'Not Running',
+    kubernetes: kubernetesRunning ? 'Running' : 'Not Running',
+    prometheus: prometheusRunning ? 'Running' : 'Not Running',
+    grafana: grafanaRunning ? 'Running' : 'Not Running',
+  };
 }
 
 router.get('/summary', async (req, res) => {
@@ -38,6 +83,16 @@ router.get('/summary', async (req, res) => {
   } catch (error) {
     console.error('Summary error:', error.message);
     res.status(500).json({ error: 'Unable to load summary' });
+  }
+});
+
+router.get('/services', async (req, res) => {
+  try {
+    const status = await getServiceStatus();
+    res.json(status);
+  } catch (error) {
+    console.error('Services error:', error.message);
+    res.status(500).json({ error: 'Unable to load service status' });
   }
 });
 
