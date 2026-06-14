@@ -9,6 +9,9 @@ const usersPage = document.getElementById('usersPage');
 const backupPage = document.getElementById('backupPage');
 const logoutBtn = document.getElementById('logoutBtn');
 const loginForm = document.getElementById('loginForm');
+const sidebar = document.getElementById('sidebar');
+const topBar = document.getElementById('topBar');
+const mainContent = document.getElementById('mainContent');
 
 const summaryElements = {
   kpiUsers: document.getElementById('kpiUsers'),
@@ -124,6 +127,20 @@ function showPage(pageId, title) {
   if (activeLink) activeLink.classList.add('active');
 }
 
+function setAuthenticated(authenticated) {
+  if (authenticated) {
+    sidebar.classList.remove('hidden');
+    topBar.classList.remove('hidden');
+    mainContent.classList.remove('login-mode');
+    showPage('dashboardPage', 'Dashboard');
+  } else {
+    sidebar.classList.add('hidden');
+    topBar.classList.add('hidden');
+    mainContent.classList.add('login-mode');
+    showPage('loginPage', 'Login');
+  }
+}
+
 navLinks.forEach(link => {
   link.addEventListener('click', () => {
     const page = `${link.dataset.page}Page`;
@@ -132,7 +149,7 @@ navLinks.forEach(link => {
 });
 
 logoutBtn.addEventListener('click', () => {
-  showPage('loginPage', 'Login');
+  setAuthenticated(false);
 });
 
 loginForm.addEventListener('submit', event => {
@@ -148,7 +165,7 @@ loginForm.addEventListener('submit', event => {
   };
 
   if (validUsers[username] === password && role) {
-    showPage('dashboardPage', 'Dashboard');
+    setAuthenticated(true);
     return;
   }
   alert('Invalid login. Use admin/admin123, manager/manager123, or employee/employee123.');

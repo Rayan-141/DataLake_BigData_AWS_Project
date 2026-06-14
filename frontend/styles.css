@@ -25,6 +25,9 @@ button {
 button:hover {
   opacity: 0.95;
 }
+.hidden {
+  display: none !important;
+}
 .app-shell {
   display: flex;
   min-height: 100vh;
@@ -115,16 +118,26 @@ button:hover {
   box-shadow: 0 16px 30px rgba(23, 43, 77, 0.08);
 }
 .login-card {
-  max-width: 420px;
-  margin: 40px auto;
-  text-align: center;
+  max-width: 460px;
+  margin: 80px auto;
+  text-align: left;
+  padding: 36px;
 }
 .login-card h2 {
-  margin: 0 0 12px;
+  margin: 0 0 10px;
+  font-size: 1.9rem;
 }
 .login-card p {
-  margin: 0 0 22px;
+  margin: 0 0 24px;
   color: #475569;
+}
+.login-card .login-subtitle {
+  margin-bottom: 24px;
+  color: #64748b;
+}
+.login-card button {
+  width: 100%;
+  margin-top: 18px;
 }
 .login-card label {
   display: block;
