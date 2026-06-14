@@ -21,6 +21,83 @@ const summaryElements = {
 };
 
 const output = document.getElementById('data-output');
+const currentUserName = document.getElementById('currentUserName');
+const userRoleBadge = document.getElementById('userRoleBadge');
+
+let activeUser = null;
+let activeRole = null;
+let activityLog = JSON.parse(localStorage.getItem('activityLog') || '[]');
+const roleLabels = {
+  admin: 'Administrator',
+  manager: 'Manager',
+  employee: 'Employee',
+};
+
+function saveActivity() {
+  localStorage.setItem('activityLog', JSON.stringify(activityLog));
+}
+
+function formatTime(date) {
+  return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+}
+
+function updateUserHeader() {
+  currentUserName.textContent = activeUser ? activeUser.charAt(0).toUpperCase() + activeUser.slice(1) : 'Guest';
+  userRoleBadge.textContent = activeRole ? roleLabels[activeRole] : 'Visitor';
+}
+
+function updateDashboardMetrics() {
+  const metrics = {
+    admin: { users: 150, datasets: 40, reports: 15, storage: '500 GB' },
+    manager: { users: 85, datasets: 18, reports: 9, storage: '220 GB' },
+    employee: { users: 28, datasets: 7, reports: 4, storage: '95 GB' },
+  };
+  const roleData = metrics[activeRole] || metrics.employee;
+  summaryElements.kpiUsers.textContent = roleData.users;
+  summaryElements.kpiDatasets.textContent = roleData.datasets;
+  summaryElements.kpiReports.textContent = roleData.reports;
+  summaryElements.kpiStorage.textContent = roleData.storage;
+}
+
+function addActivity(action, status) {
+  if (!activeUser || !activeRole) return;
+  const record = {
+    activity: action,
+    user: activeUser,
+    role: activeRole,
+    status,
+    time: formatTime(new Date()),
+    date: new Date().toLocaleDateString(),
+  };
+  activityLog.unshift(record);
+  if (activityLog.length > 20) activityLog.pop();
+  saveActivity();
+  renderActivity();
+}
+
+function renderActivity() {
+  const tableBody = document.getElementById('recentActivityBody');
+  if (!tableBody) return;
+  if (!activeUser) {
+    tableBody.innerHTML = '<tr><td colspan="4">Sign in to see your recent activity.</td></tr>';
+    return;
+  }
+
+  const userEvents = activityLog.filter(entry => entry.user === activeUser);
+  if (userEvents.length === 0) {
+    tableBody.innerHTML = '<tr><td colspan="4">No activity recorded yet for this account.</td></tr>';
+    return;
+  }
+
+  tableBody.innerHTML = userEvents.slice(0, 8).map(entry => `
+    <tr>
+      <td>${entry.activity}</td>
+      <td>${entry.user}</td>
+      <td>${entry.status}</td>
+      <td>${entry.date} ${entry.time}</td>
+    </tr>
+  `).join('');
+}
 
 async function fetchJson(path, options = {}) {
   const response = await fetch(path, options);
@@ -133,11 +210,16 @@ function setAuthenticated(authenticated) {
     topBar.classList.remove('hidden');
     mainContent.classList.remove('login-mode');
     showPage('dashboardPage', 'Dashboard');
+    updateUserHeader();
+    updateDashboardMetrics();
+    renderActivity();
   } else {
     sidebar.classList.add('hidden');
     topBar.classList.add('hidden');
     mainContent.classList.add('login-mode');
     showPage('loginPage', 'Login');
+    updateUserHeader();
+    renderActivity();
   }
 }
 
@@ -149,7 +231,13 @@ navLinks.forEach(link => {
 });
 
 logoutBtn.addEventListener('click', () => {
+  if (activeUser && activeRole) {
+    addActivity('Logout', 'Success');
+  }
   setAuthenticated(false);
+  activeUser = null;
+  activeRole = null;
+  updateUserHeader();
 });
 
 loginForm.addEventListener('submit', event => {
@@ -165,7 +253,11 @@ loginForm.addEventListener('submit', event => {
   };
 
   if (validUsers[username] === password && role) {
+    activeUser = username;
+    activeRole = role;
+    updateUserHeader();
     setAuthenticated(true);
+    addActivity('Login', 'Success');
     return;
   }
   alert('Invalid login. Use admin/admin123, manager/manager123, or employee/employee123.');

@@ -34,7 +34,7 @@
       <section class="page active" id="loginPage">
         <div class="login-card">
           <h2>DataLake Cloud Platform</h2>
-          <p>Enter your credentials to continue.</p>
+          <p class="login-subtitle">Secure AWS access for Admin, Manager, and Employee roles.</p>
           <form id="loginForm">
             <label>Username</label>
             <input type="text" id="loginUsername" placeholder="admin" required />
@@ -53,32 +53,36 @@
       </section>
 
       <section class="page" id="dashboardPage">
-        <div class="section-header">
-          <h2>Dashboard</h2>
+        <div class="dashboard-header">
+          <div>
+            <h2>Dashboard</h2>
+            <p class="dashboard-subtitle">Welcome back, <span id="currentUserName">Admin</span>. Review your AWS data lake health and recent activity.</p>
+          </div>
+          <div class="status-pill" id="userRoleBadge">Administrator</div>
         </div>
-        <div class="grid grid-4">
-          <div class="metric-card">
-            <span>Users</span>
+        <div class="grid grid-4 card-grid">
+          <div class="metric-card gradient-card">
+            <span>Active Users</span>
             <strong id="kpiUsers">150</strong>
           </div>
-          <div class="metric-card">
+          <div class="metric-card gradient-card">
             <span>Datasets</span>
             <strong id="kpiDatasets">40</strong>
           </div>
-          <div class="metric-card">
+          <div class="metric-card gradient-card">
             <span>Reports</span>
             <strong id="kpiReports">15</strong>
           </div>
-          <div class="metric-card">
+          <div class="metric-card gradient-card">
             <span>Storage</span>
             <strong id="kpiStorage">500 GB</strong>
           </div>
         </div>
 
-        <div class="section-header">
+        <div class="section-header section-header-spaced">
           <h3>Infrastructure Status</h3>
         </div>
-        <div class="grid grid-5">
+        <div class="grid grid-5 card-grid">
           <div class="status-card"><span>Docker</span><strong>Running</strong></div>
           <div class="status-card"><span>Jenkins</span><strong>Running</strong></div>
           <div class="status-card"><span>Kubernetes</span><strong>Running</strong></div>
@@ -86,18 +90,16 @@
           <div class="status-card"><span>Grafana</span><strong>Running</strong></div>
         </div>
 
-        <div class="section-header">
+        <div class="section-header section-header-spaced">
           <h3>Recent Activity</h3>
         </div>
-        <div class="table-card">
+        <div class="table-card recent-activity-card">
           <table>
             <thead>
-              <tr><th>Activity</th><th>Status</th><th>Time</th></tr>
+              <tr><th>Activity</th><th>User</th><th>Status</th><th>Time</th></tr>
             </thead>
-            <tbody>
-              <tr><td>Dataset Uploaded</td><td>Success</td><td>10 min ago</td></tr>
-              <tr><td>Backup Created</td><td>Success</td><td>1 hour ago</td></tr>
-              <tr><td>Report Generated</td><td>Success</td><td>2 hours ago</td></tr>
+            <tbody id="recentActivityBody">
+              <tr><td>Loading activity...</td><td>-</td><td>-</td><td>-</td></tr>
             </tbody>
           </table>
         </div>
@@ -168,7 +170,7 @@
       </section>
     </div>
   </div>
-
+  <div id="data-output" class="screen-reader-text"></div>
   <script src="app.js"></script>
 </body>
 </html>
