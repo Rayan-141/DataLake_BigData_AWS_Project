@@ -393,6 +393,7 @@ button:hover {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
+  margin-top: 24px;
   margin-bottom: 18px;
 }
 .monitor-row {
@@ -401,7 +402,11 @@ button:hover {
   gap: 16px;
 }
 .monitor-card {
-  gap: 16px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 12px;
 }
 .progress {
   height: 10px;
