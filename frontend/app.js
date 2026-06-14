@@ -397,6 +397,33 @@ attachForm('datasetForm', 'datasets');
 attachForm('reportForm', 'reports');
 attachForm('uploadReportForm', 'reports/upload');
 attachForm('datasetStatusForm', 'datasets/:id/status', 'PUT');
+attachForm('taskStatusForm', 'tasks/:id/status', 'PUT');
+
+const loadDatasetsBtn = document.getElementById('loadDatasetsBtn');
+const s3DatasetsBody = document.getElementById('s3DatasetsBody');
+
+if (loadDatasetsBtn && s3DatasetsBody) {
+  loadDatasetsBtn.addEventListener('click', async () => {
+    try {
+      s3DatasetsBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #64748b;">Loading...</td></tr>`;
+      const rows = await fetchJson('/api/datasets/list');
+      if (rows && rows.length > 0) {
+        s3DatasetsBody.innerHTML = rows.map(r => `
+          <tr>
+            <td>${r.id}</td>
+            <td>${r.file_name}</td>
+            <td>${new Date(r.upload_time).toLocaleString()}</td>
+          </tr>
+        `).join('');
+      } else {
+        s3DatasetsBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: #64748b;">No datasets found in S3.</td></tr>`;
+      }
+    } catch (err) {
+      console.error(err);
+      s3DatasetsBody.innerHTML = `<tr><td colspan="3" style="text-align: center; color: red;">Failed to load datasets.</td></tr>`;
+    }
+  });
+}
 attachForm('taskForm', 'tasks');
 
 // Default page when logged in

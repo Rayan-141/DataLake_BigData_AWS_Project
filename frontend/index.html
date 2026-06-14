@@ -108,6 +108,25 @@
             </tbody>
           </table>
         </div>
+
+        <div class="section-header section-header-spaced" style="display: flex; justify-content: space-between; align-items: center;">
+          <h3>Uploaded Datasets (S3)</h3>
+          <button id="loadDatasetsBtn" class="small-button" style="background: #ff9900; color: white; border: none; padding: 10px 16px;">Load Datasets</button>
+        </div>
+        <div class="table-card">
+          <table>
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>File Name</th>
+                <th>Upload Time</th>
+              </tr>
+            </thead>
+            <tbody id="s3DatasetsBody">
+              <tr><td colspan="3" style="text-align: center; color: #64748b;">Click "Load Datasets" to view.</td></tr>
+            </tbody>
+          </table>
+        </div>
       </section>
 
       <section class="page" id="monitoringPage">
