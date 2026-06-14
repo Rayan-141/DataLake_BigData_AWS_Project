@@ -2,6 +2,7 @@ const { PutObjectCommand } = require("@aws-sdk/client-s3");
 const fs = require("fs");
 const s3 = require("../s3");
 const db = require("../db/connection");
+const logger = require("../logs/logger");
 
 exports.uploadDataset = async (req, res) => {
   try {
@@ -24,6 +25,10 @@ exports.uploadDataset = async (req, res) => {
 
     await s3.send(command);
 
+    logger.info(
+      `Dataset Uploaded : ${req.file.originalname}`
+    );
+
     await db.execute(
       `
       INSERT INTO uploaded_datasets
@@ -43,6 +48,7 @@ exports.uploadDataset = async (req, res) => {
 
   } catch (err) {
 
+    logger.error(err.message);
     console.error(err);
 
     res.status(500).json({

@@ -2,6 +2,7 @@ const express = require('express');
 const path = require('path');
 const dotenv = require('dotenv');
 const api = require('./routes');
+const logger = require('./logs/logger');
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname, '..', 'frontend', 'index.html'));
 });
 
+logger.info("Server Starting...");
 app.listen(PORT, () => {
-  console.log(`DataLake Analytics Cloud Portal listening on port ${PORT}`);
+  logger.info(`Server Running On Port ${PORT}`);
 });
