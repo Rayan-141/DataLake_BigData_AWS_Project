@@ -5,7 +5,7 @@ const { exec } = require('child_process');
 const upload = require("./upload");
 const { uploadDataset } = require("./controllers/uploadController");
 const logger = require("./logs/logger");
-const { S3Client, PutObjectCommand } = require('@aws-sdk/client-s3');
+const { S3Client, PutObjectCommand, ListObjectsV2Command } = require('@aws-sdk/client-s3');
 const db = require("./db/connection");
 const router = express.Router();
 
@@ -24,6 +24,8 @@ async function getConnection() {
   const conn = await mysql.createConnection(dbConfig);
   return conn;
 }
+
+const fs = require('fs');
 
 function testPort(port, host = '127.0.0.1') {
   return new Promise(resolve => {
@@ -53,7 +55,10 @@ function runCommand(cmd) {
 }
 
 async function getServiceStatus() {
-  const dockerRunning = process.env.DOCKER_RUNNING === 'true' || await runCommand('docker info');
+  const dockerRunning = process.env.DOCKER_RUNNING === 'true' || 
+                        fs.existsSync('/.dockerenv') || 
+                        fs.existsSync('/var/run/docker.sock') || 
+                        await runCommand('docker info');
   const jenkinsRunning = process.env.JENKINS_RUNNING === 'true' || await testPort(8080);
   const kubernetesRunning = process.env.K8S_RUNNING === 'true' || await testPort(6443);
   const prometheusRunning = process.env.PROMETHEUS_RUNNING === 'true' || await testPort(9090);
@@ -72,15 +77,33 @@ router.get('/summary', async (req, res) => {
   try {
     const conn = await getConnection();
     const [users] = await conn.query('SELECT COUNT(*) AS totalUsers FROM users');
-    const [datasets] = await conn.query('SELECT COUNT(*) AS totalDatasets, SUM(size_mb) AS totalStorage FROM datasets');
+    const [datasets] = await conn.query('SELECT COUNT(*) AS totalDatasets FROM uploaded_datasets');
     const [reports] = await conn.query('SELECT COUNT(*) AS totalReports FROM reports');
     const [active] = await conn.query("SELECT COUNT(*) AS activeUsers FROM users WHERE role <> 'analyst'");
     conn.end();
 
+    let totalStorageBytes = 0;
+    if (s3BucketName) {
+      try {
+        const s3Data = await s3Client.send(new ListObjectsV2Command({
+          Bucket: s3BucketName
+        }));
+        if (s3Data.Contents) {
+          for (const obj of s3Data.Contents) {
+            totalStorageBytes += obj.Size || 0;
+          }
+        }
+      } catch (s3Err) {
+        console.error('Failed to list S3 objects for summary:', s3Err.message);
+      }
+    }
+
+    const totalStorageMb = parseFloat((totalStorageBytes / (1024 * 1024)).toFixed(2));
+
     res.json({
       totalUsers: users[0].totalUsers || 0,
       totalDatasets: datasets[0].totalDatasets || 0,
-      totalStorage: datasets[0].totalStorage || 0,
+      totalStorage: totalStorageMb,
       totalReports: reports[0].totalReports || 0,
       activeUsers: active[0].activeUsers || 0,
     });

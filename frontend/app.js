@@ -85,13 +85,13 @@ async function loadServices() {
     const elDocker = document.getElementById('dockerStatus');
     if (elDocker) {
       elDocker.textContent = data.docker;
-      elDocker.className = data.docker === 'Running' ? 'running' : 'stopped';
+      elDocker.className = data.docker === 'Running' ? 'status-badge running' : 'status-badge stopped';
     }
   } catch (error) {
     const elDocker = document.getElementById('dockerStatus');
     if (elDocker) {
       elDocker.textContent = 'Not Running';
-      elDocker.className = 'stopped';
+      elDocker.className = 'status-badge stopped';
     }
     console.error('Failed to load service status', error);
   }
@@ -180,7 +180,7 @@ async function loadSummary() {
     const elReports = document.getElementById('reportsCount');
     const elStorage = document.getElementById('storageCount');
 
-    if (elUsers) elUsers.textContent = data.totalUsers ?? elUsers.textContent;
+    if (elUsers) elUsers.textContent = data.activeUsers ?? elUsers.textContent;
     if (elDatasets) elDatasets.textContent = data.totalDatasets ?? elDatasets.textContent;
     if (elReports) elReports.textContent = data.totalReports ?? elReports.textContent;
     if (elStorage) elStorage.textContent = formatStorage(data.totalStorage);
