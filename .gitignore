@@ -34,6 +34,8 @@ backend/uploads/*
 backend/uploads/
 *.csv
 *.pem
+*.env
+
 
 
 
