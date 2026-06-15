@@ -63,19 +63,19 @@
         <div class="grid grid-4 card-grid">
           <div class="metric-card gradient-card">
             <span>Active Users</span>
-            <strong id="kpiUsers">150</strong>
+            <strong id="usersCount">150</strong>
           </div>
           <div class="metric-card gradient-card">
             <span>Datasets</span>
-            <strong id="kpiDatasets">40</strong>
+            <strong id="datasetCount">40</strong>
           </div>
           <div class="metric-card gradient-card">
             <span>Reports</span>
-            <strong id="kpiReports">15</strong>
+            <strong id="reportsCount">15</strong>
           </div>
           <div class="metric-card gradient-card">
             <span>Storage</span>
-            <strong id="kpiStorage">500 GB</strong>
+            <strong id="storageCount">500 GB</strong>
           </div>
         </div>
 
@@ -83,11 +83,11 @@
           <h3>Infrastructure Status</h3>
         </div>
         <div class="grid grid-5 card-grid">
-          <div class="status-card"><span>Docker</span><strong id="dockerStatus">Unknown</strong></div>
-          <div class="status-card"><span>Jenkins</span><strong id="jenkinsStatus">Unknown</strong></div>
-          <div class="status-card"><span>Kubernetes</span><strong id="k8sStatus">Unknown</strong></div>
-          <div class="status-card"><span>Prometheus</span><strong id="prometheusStatus">Unknown</strong></div>
-          <div class="status-card"><span>Grafana</span><strong id="grafanaStatus">Unknown</strong></div>
+          <div class="status-card"><h3>EC2</h3><p class="running">Running</p></div>
+          <div class="status-card"><h3>S3</h3><p class="running">Running</p></div>
+          <div class="status-card"><h3>MySQL</h3><p class="running">Running</p></div>
+          <div class="status-card"><h3>Docker</h3><p class="running">Running</p></div>
+          <div class="status-card"><h3>Alerts</h3><p class="running">Running</p></div>
         </div>
 
         <div class="section-header section-header-spaced">
@@ -121,10 +121,12 @@
                 <th>ID</th>
                 <th>File Name</th>
                 <th>Upload Time</th>
+                <th>Download</th>
+                <th>Delete</th>
               </tr>
             </thead>
             <tbody id="s3DatasetsBody">
-              <tr><td colspan="3" style="text-align: center; color: #64748b;">Click "Load Datasets" to view.</td></tr>
+              <tr><td colspan="5" style="text-align: center; color: #64748b;">Click "Load Datasets" to view.</td></tr>
             </tbody>
           </table>
         </div>

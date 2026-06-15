@@ -428,6 +428,16 @@ button:hover {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
+
+.running {
+  color: #16a34a;
+  font-weight: bold;
+}
+
+.stopped {
+  color: #dc2626;
+  font-weight: bold;
+}
 @media (max-width: 760px) {
   .app-shell {
     flex-direction: column;
