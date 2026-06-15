@@ -5,7 +5,7 @@ const { exec } = require('child_process');
 const upload = require("./upload");
 const { uploadDataset } = require("./controllers/uploadController");
 const logger = require("./logs/logger");
-const { S3Client, PutObjectCommand, ListObjectsV2Command } = require('@aws-sdk/client-s3');
+const { S3Client, PutObjectCommand, ListObjectsV2Command, DeleteObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
 const db = require("./db/connection");
 const router = express.Router();
 
@@ -343,6 +343,65 @@ router.get("/datasets/list", async (req, res) => {
   } catch (err) {
     logger.error("Failed to list datasets: " + err.message);
     res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+router.delete("/datasets/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [rows] = await db.execute("SELECT s3_key FROM uploaded_datasets WHERE id = ?", [id]);
+    if (!rows || rows.length === 0) {
+      return res.status(404).json({ error: "Dataset not found" });
+    }
+    const { s3_key } = rows[0];
+
+    if (s3BucketName && s3_key) {
+      try {
+        await s3Client.send(new DeleteObjectCommand({
+          Bucket: s3BucketName,
+          Key: s3_key
+        }));
+        logger.info(`Deleted from S3: ${s3_key}`);
+      } catch (s3Err) {
+        logger.error(`S3 Delete Object failed: ${s3Err.message}`);
+      }
+    }
+
+    await db.execute("DELETE FROM uploaded_datasets WHERE id = ?", [id]);
+    logger.info(`Deleted dataset ID ${id} from database`);
+    res.json({ success: true, message: "Dataset deleted successfully" });
+  } catch (error) {
+    logger.error(`Failed to delete dataset ID ${id}: ${error.message}`);
+    res.status(500).json({ success: false, error: "Unable to delete dataset" });
+  }
+});
+
+router.get("/datasets/download/:id", async (req, res) => {
+  const { id } = req.params;
+  res.json({ downloadUrl: `/api/datasets/file/${id}` });
+});
+
+router.get("/datasets/file/:id", async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [rows] = await db.execute("SELECT filename, s3_key FROM uploaded_datasets WHERE id = ?", [id]);
+    if (!rows || rows.length === 0) {
+      return res.status(404).send("Dataset not found");
+    }
+    const { filename, s3_key } = rows[0];
+
+    const command = new GetObjectCommand({
+      Bucket: s3BucketName,
+      Key: s3_key
+    });
+    const s3Response = await s3Client.send(command);
+
+    res.setHeader("Content-Disposition", `attachment; filename="${filename}"`);
+    res.setHeader("Content-Type", s3Response.ContentType || "application/octet-stream");
+    s3Response.Body.pipe(res);
+  } catch (error) {
+    logger.error(`Failed to download file for dataset ID ${id}: ${error.message}`);
+    res.status(500).send("Unable to download file");
   }
 });
 
