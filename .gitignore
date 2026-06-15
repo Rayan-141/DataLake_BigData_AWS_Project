@@ -33,6 +33,7 @@ build/
 backend/uploads/*
 backend/uploads/
 *.csv
+*.pem
 
 
 
