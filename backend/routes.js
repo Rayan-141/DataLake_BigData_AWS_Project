@@ -312,14 +312,15 @@ router.post(
 );
 
 router.get("/datasets/list", async (req, res) => {
-
-  const [rows] =
-    await db.execute(
-      "SELECT id, file_name AS filename, s3_key, upload_time FROM uploaded_datasets ORDER BY id DESC"
+  try {
+    const [rows] = await db.execute(
+      "SELECT id, filename, s3_key, upload_time FROM uploaded_datasets ORDER BY id DESC"
     );
-
-  res.json(rows);
-
+    res.json(rows);
+  } catch (err) {
+    logger.error("Failed to list datasets: " + err.message);
+    res.status(500).json({ success: false, error: err.message });
+  }
 });
 
 router.get("/health", (req, res) => {

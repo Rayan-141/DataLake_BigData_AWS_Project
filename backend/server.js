@@ -7,6 +7,9 @@ const morgan = require('morgan');
 
 dotenv.config();
 
+const initializeDatabase = require('./db/init');
+initializeDatabase();
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
