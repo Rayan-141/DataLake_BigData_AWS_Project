@@ -2,18 +2,12 @@ FROM node:20-alpine
 
 WORKDIR /app
 
-COPY backend/package*.json ./backend/
+COPY package*.json ./
 
-RUN cd backend && npm install --production
+RUN npm install --production
 
 COPY . .
-
-WORKDIR /app/backend
 
 EXPOSE 3000
 
 CMD ["node","server.js"]
-<<<<<<< HEAD
-=======
-
->>>>>>> 7efc36f (Auto-sync: file changes)

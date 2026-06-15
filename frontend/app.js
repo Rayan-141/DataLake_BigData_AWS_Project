@@ -222,7 +222,7 @@ async function loadDepartments() {
 
 async function loadDatasets() {
   try {
-    const datasets = await fetchJson('/api/datasets');
+    const datasets = await fetchJson('/api/datasets/list');
     output.innerHTML = renderTable('Datasets', datasets);
   } catch (error) {
     output.innerHTML = `<p class="error">${error.message}</p>`;
