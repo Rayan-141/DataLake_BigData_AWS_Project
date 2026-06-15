@@ -83,28 +83,16 @@ async function loadServices() {
   try {
     const data = await fetchJson('/api/services');
     const elDocker = document.getElementById('dockerStatus');
-    const elJenkins = document.getElementById('jenkinsStatus');
-    const elK8s = document.getElementById('k8sStatus');
-    const elPrometheus = document.getElementById('prometheusStatus');
-    const elGrafana = document.getElementById('grafanaStatus');
-
-    if (elDocker) elDocker.textContent = data.docker;
-    if (elJenkins) elJenkins.textContent = data.jenkins;
-    if (elK8s) elK8s.textContent = data.kubernetes;
-    if (elPrometheus) elPrometheus.textContent = data.prometheus;
-    if (elGrafana) elGrafana.textContent = data.grafana;
+    if (elDocker) {
+      elDocker.textContent = data.docker;
+      elDocker.className = data.docker === 'Running' ? 'running' : 'stopped';
+    }
   } catch (error) {
     const elDocker = document.getElementById('dockerStatus');
-    const elJenkins = document.getElementById('jenkinsStatus');
-    const elK8s = document.getElementById('k8sStatus');
-    const elPrometheus = document.getElementById('prometheusStatus');
-    const elGrafana = document.getElementById('grafanaStatus');
-
-    if (elDocker) elDocker.textContent = 'Not Running';
-    if (elJenkins) elJenkins.textContent = 'Not Running';
-    if (elK8s) elK8s.textContent = 'Not Running';
-    if (elPrometheus) elPrometheus.textContent = 'Not Running';
-    if (elGrafana) elGrafana.textContent = 'Not Running';
+    if (elDocker) {
+      elDocker.textContent = 'Not Running';
+      elDocker.className = 'stopped';
+    }
     console.error('Failed to load service status', error);
   }
 }
@@ -481,14 +469,7 @@ if (loadDatasetsBtn && s3DatasetsBody) {
 </tr>
 `).join("");
 
-        // Fix 3: Real Dashboard Numbers
-        document.getElementById("usersCount").innerText = "1"; // (admin demo)
-        document.getElementById("datasetCount").innerText = rows.length;
-        document.getElementById("reportsCount").innerText = "1"; // (demo)
-
-        let totalStorage = 0;
-        rows.forEach(d => { totalStorage += 99; });
-        document.getElementById("storageCount").innerText = (totalStorage / 1024).toFixed(2) + " KB";
+        loadSummary();
 
       } else {
         s3DatasetsBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #64748b;">No datasets found in S3.</td></tr>`;
