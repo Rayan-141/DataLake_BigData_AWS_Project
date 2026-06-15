@@ -32,7 +32,7 @@ exports.uploadDataset = async (req, res) => {
         await db.execute(
             `
       INSERT INTO uploaded_datasets
-      (filename, s3_key)
+      (file_name, s3_key)
       VALUES (?,?)
       `,
             [

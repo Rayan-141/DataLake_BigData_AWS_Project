@@ -1,3 +1,5 @@
+console.log("DEPLOYMENT_TEST_JUNE_15");
+
 const pageTitle = document.getElementById('pageTitle');
 const pages = Array.from(document.querySelectorAll('.page'));
 const navLinks = Array.from(document.querySelectorAll('.nav-link'));
@@ -14,10 +16,10 @@ const topBar = document.getElementById('topBar');
 const mainContent = document.getElementById('mainContent');
 
 const summaryElements = {
-  kpiUsers: document.getElementById('kpiUsers'),
-  kpiDatasets: document.getElementById('kpiDatasets'),
-  kpiReports: document.getElementById('kpiReports'),
-  kpiStorage: document.getElementById('kpiStorage'),
+  kpiUsers: document.getElementById('usersCount'),
+  kpiDatasets: document.getElementById('datasetCount'),
+  kpiReports: document.getElementById('reportsCount'),
+  kpiStorage: document.getElementById('storageCount'),
 };
 
 const output = document.getElementById('data-output');
@@ -28,10 +30,10 @@ const jenkinsStatus = document.getElementById('jenkinsStatus');
 const k8sStatus = document.getElementById('k8sStatus');
 const prometheusStatus = document.getElementById('prometheusStatus');
 const grafanaStatus = document.getElementById('grafanaStatus');
-const activeUsersText = document.getElementById('kpiUsers');
-const datasetsText = document.getElementById('kpiDatasets');
-const reportsText = document.getElementById('kpiReports');
-const storageText = document.getElementById('kpiStorage');
+const activeUsersText = document.getElementById('usersCount');
+const datasetsText = document.getElementById('datasetCount');
+const reportsText = document.getElementById('reportsCount');
+const storageText = document.getElementById('storageCount');
 const brandMark = document.getElementById('brandMark');
 
 let activeUser = null;
@@ -80,17 +82,29 @@ function updateUserHeader() {
 async function loadServices() {
   try {
     const data = await fetchJson('/api/services');
-    dockerStatus.textContent = data.docker;
-    jenkinsStatus.textContent = data.jenkins;
-    k8sStatus.textContent = data.kubernetes;
-    prometheusStatus.textContent = data.prometheus;
-    grafanaStatus.textContent = data.grafana;
+    const elDocker = document.getElementById('dockerStatus');
+    const elJenkins = document.getElementById('jenkinsStatus');
+    const elK8s = document.getElementById('k8sStatus');
+    const elPrometheus = document.getElementById('prometheusStatus');
+    const elGrafana = document.getElementById('grafanaStatus');
+
+    if (elDocker) elDocker.textContent = data.docker;
+    if (elJenkins) elJenkins.textContent = data.jenkins;
+    if (elK8s) elK8s.textContent = data.kubernetes;
+    if (elPrometheus) elPrometheus.textContent = data.prometheus;
+    if (elGrafana) elGrafana.textContent = data.grafana;
   } catch (error) {
-    dockerStatus.textContent = 'Not Running';
-    jenkinsStatus.textContent = 'Not Running';
-    k8sStatus.textContent = 'Not Running';
-    prometheusStatus.textContent = 'Not Running';
-    grafanaStatus.textContent = 'Not Running';
+    const elDocker = document.getElementById('dockerStatus');
+    const elJenkins = document.getElementById('jenkinsStatus');
+    const elK8s = document.getElementById('k8sStatus');
+    const elPrometheus = document.getElementById('prometheusStatus');
+    const elGrafana = document.getElementById('grafanaStatus');
+
+    if (elDocker) elDocker.textContent = 'Not Running';
+    if (elJenkins) elJenkins.textContent = 'Not Running';
+    if (elK8s) elK8s.textContent = 'Not Running';
+    if (elPrometheus) elPrometheus.textContent = 'Not Running';
+    if (elGrafana) elGrafana.textContent = 'Not Running';
     console.error('Failed to load service status', error);
   }
 }
@@ -173,10 +187,15 @@ function formatStorage(value) {
 async function loadSummary() {
   try {
     const data = await fetchJson('/api/summary');
-    summaryElements.kpiUsers.textContent = data.totalUsers ?? summaryElements.kpiUsers.textContent;
-    summaryElements.kpiDatasets.textContent = data.totalDatasets ?? summaryElements.kpiDatasets.textContent;
-    summaryElements.kpiReports.textContent = data.totalReports ?? summaryElements.kpiReports.textContent;
-    summaryElements.kpiStorage.textContent = formatStorage(data.totalStorage);
+    const elUsers = document.getElementById('usersCount');
+    const elDatasets = document.getElementById('datasetCount');
+    const elReports = document.getElementById('reportsCount');
+    const elStorage = document.getElementById('storageCount');
+
+    if (elUsers) elUsers.textContent = data.totalUsers ?? elUsers.textContent;
+    if (elDatasets) elDatasets.textContent = data.totalDatasets ?? elDatasets.textContent;
+    if (elReports) elReports.textContent = data.totalReports ?? elReports.textContent;
+    if (elStorage) elStorage.textContent = formatStorage(data.totalStorage);
   } catch (error) {
     console.error(error);
   }
@@ -222,6 +241,11 @@ async function loadDepartments() {
 
 async function loadDatasets() {
   try {
+    const btn = document.getElementById("loadDatasetsBtn");
+    if (btn) {
+      btn.click();
+      return;
+    }
     const datasets = await fetchJson('/api/datasets/list');
     output.innerHTML = renderTable('Datasets', datasets);
   } catch (error) {
@@ -407,7 +431,7 @@ async function downloadDataset(id) {
     const response = await fetch(`/api/datasets/download/${id}`);
     const data = await response.json();
     window.open(data.downloadUrl, "_blank");
-  } catch(error) {
+  } catch (error) {
     console.error(error);
     alert("Download Failed");
   }
@@ -424,7 +448,7 @@ async function deleteDataset(id) {
     const data = await response.json();
     alert(data.message);
     document.getElementById("loadDatasetsBtn").click();
-  } catch(error) {
+  } catch (error) {
     console.error(error);
     alert("Delete Failed");
   }
@@ -435,22 +459,33 @@ if (loadDatasetsBtn && s3DatasetsBody) {
     try {
       s3DatasetsBody.innerHTML = `<tr><td colspan="5" style="text-align: center; color: #64748b;">Loading...</td></tr>`;
       const rows = await fetchJson('/api/datasets/list');
+      console.log(rows);
       if (rows && rows.length > 0) {
         s3DatasetsBody.innerHTML = rows.map(r => `
-          <tr>
-            <td>${r.id}</td>
-            <td>${r.file_name}</td>
-            <td>${new Date(r.upload_time).toLocaleString()}</td>
-            <td><button class="small-button" onclick="downloadDataset(${r.id})">Download</button></td>
-            <td><button class="small-button" style="background: #ef4444;" onclick="deleteDataset(${r.id})">Delete</button></td>
-          </tr>
-        `).join('');
+<tr>
+    <td>${r.id}</td>
+    <td>${r.filename}</td>
+    <td>${new Date(r.upload_time).toLocaleString()}</td>
+
+    <td>
+        <button onclick="downloadDataset(${r.id})">
+            Download
+        </button>
+    </td>
+
+    <td>
+        <button onclick="deleteDataset(${r.id})">
+            Delete
+        </button>
+    </td>
+</tr>
+`).join("");
 
         // Fix 3: Real Dashboard Numbers
         document.getElementById("usersCount").innerText = "1"; // (admin demo)
         document.getElementById("datasetCount").innerText = rows.length;
         document.getElementById("reportsCount").innerText = "1"; // (demo)
-        
+
         let totalStorage = 0;
         rows.forEach(d => { totalStorage += 99; });
         document.getElementById("storageCount").innerText = (totalStorage / 1024).toFixed(2) + " KB";
@@ -470,7 +505,42 @@ attachForm('taskForm', 'tasks');
 showPage('loginPage', 'Login');
 
 window.addEventListener("load", () => {
-  if(loadDatasetsBtn){
+  if (loadDatasetsBtn) {
     loadDatasetsBtn.click();
   }
 });
+
+async function uploadDataset() {
+  const file = document.getElementById("datasetFile").files[0];
+
+  if (!file) {
+    alert("Choose file");
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append("file", file);
+
+  const response = await fetch(
+    `/api/datasets/upload`,
+    {
+      method: "POST",
+      body: formData
+    }
+  );
+
+  const data = await response.json();
+
+  if (data.success) {
+    alert("Uploaded!");
+    if (document.getElementById("loadDatasetsBtn")) {
+      document.getElementById("loadDatasetsBtn").click();
+    } else {
+      loadDatasets();
+    }
+  } else {
+    alert("Upload failed");
+  }
+}
+
+setInterval(loadDatasets, 30000);

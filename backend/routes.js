@@ -311,24 +311,24 @@ router.post(
   uploadDataset
 );
 
-router.get("/datasets/list", async (req,res)=>{
+router.get("/datasets/list", async (req, res) => {
 
- const [rows] =
- await db.execute(
- "SELECT * FROM uploaded_datasets ORDER BY id DESC"
- );
+  const [rows] =
+    await db.execute(
+      "SELECT id, file_name AS filename, s3_key, upload_time FROM uploaded_datasets ORDER BY id DESC"
+    );
 
- res.json(rows);
+  res.json(rows);
 
 });
 
-router.get("/health", (req,res)=>{
+router.get("/health", (req, res) => {
 
   logger.info("Health Check Called");
 
   res.json({
-    status:"UP",
-    service:"DataLake API"
+    status: "UP",
+    service: "DataLake API"
   });
 
 });

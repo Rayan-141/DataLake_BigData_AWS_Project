@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DataLake Cloud Platform</title>
   <link rel="stylesheet" href="styles.css" />
 </head>
+
 <body>
   <div class="app-shell">
-<aside class="sidebar hidden" id="sidebar">
+    <aside class="sidebar hidden" id="sidebar">
       <div class="brand">
         <div class="brand-mark" id="brandMark"></div>
         <div>
@@ -54,12 +56,12 @@
       </section>
 
       <section class="page" id="dashboardPage">
-          <div class="dashboard-header">
-            <div>
-              <h2 class="dashboard-title">Dashboard</h2>
-            </div>
-            <div class="status-pill" id="userRoleBadge">Administrator</div>
+        <div class="dashboard-header">
+          <div>
+            <h2 class="dashboard-title">Dashboard</h2>
           </div>
+          <div class="status-pill" id="userRoleBadge">Administrator</div>
+        </div>
         <div class="grid grid-4 card-grid">
           <div class="metric-card gradient-card">
             <span>Active Users</span>
@@ -83,11 +85,26 @@
           <h3>Infrastructure Status</h3>
         </div>
         <div class="grid grid-5 card-grid">
-          <div class="status-card"><h3>EC2</h3><p class="running">Running</p></div>
-          <div class="status-card"><h3>S3</h3><p class="running">Running</p></div>
-          <div class="status-card"><h3>MySQL</h3><p class="running">Running</p></div>
-          <div class="status-card"><h3>Docker</h3><p class="running">Running</p></div>
-          <div class="status-card"><h3>Alerts</h3><p class="running">Running</p></div>
+          <div class="status-card">
+            <h3>EC2</h3>
+            <p class="running">Running</p>
+          </div>
+          <div class="status-card">
+            <h3>S3</h3>
+            <p class="running">Running</p>
+          </div>
+          <div class="status-card">
+            <h3>MySQL</h3>
+            <p class="running">Running</p>
+          </div>
+          <div class="status-card">
+            <h3>Docker</h3>
+            <p class="running">Running</p>
+          </div>
+          <div class="status-card">
+            <h3>Alerts</h3>
+            <p class="running">Running</p>
+          </div>
         </div>
 
         <div class="section-header section-header-spaced">
@@ -105,14 +122,31 @@
               </tr>
             </thead>
             <tbody id="recentActivityBody">
-              <tr><td>Loading activity...</td><td>-</td><td>-</td><td>-</td><td></td></tr>
+              <tr>
+                <td>Loading activity...</td>
+                <td>-</td>
+                <td>-</td>
+                <td>-</td>
+                <td></td>
+              </tr>
             </tbody>
           </table>
         </div>
 
-        <div class="section-header section-header-spaced" style="display: flex; justify-content: space-between; align-items: center;">
+        <div class="section-header section-header-spaced"
+          style="display: flex; justify-content: space-between; align-items: center;">
           <h3>Uploaded Datasets (S3)</h3>
-          <button id="loadDatasetsBtn" class="small-button" style="background: #ff9900; color: white; border: none; padding: 10px 16px;">Load Datasets</button>
+          <button id="loadDatasetsBtn" class="small-button"
+            style="background: #ff9900; color: white; border: none; padding: 10px 16px;">Load Datasets</button>
+        </div>
+        <div class="upload-section"
+          style="margin-bottom: 16px; display: flex; gap: 12px; align-items: center; background: white; padding: 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.05);">
+          <input type="file" id="datasetFile"
+            style="padding: 8px; border: 1px solid #e2e8f0; border-radius: 8px; flex: 1;">
+          <button onclick="uploadDataset()" class="small-button"
+            style="background: #ff9900; color: white; border: none; padding: 10px 16px;">
+            Upload Dataset
+          </button>
         </div>
         <div class="table-card">
           <table>
@@ -126,7 +160,9 @@
               </tr>
             </thead>
             <tbody id="s3DatasetsBody">
-              <tr><td colspan="5" style="text-align: center; color: #64748b;">Click "Load Datasets" to view.</td></tr>
+              <tr>
+                <td colspan="5" style="text-align: center; color: #64748b;">Click "Load Datasets" to view.</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -135,10 +171,26 @@
       <section class="page" id="monitoringPage">
 
         <div class="monitor-row">
-          <div class="monitor-card"><span>CPU Usage</span><strong>45%</strong><div class="progress"><div class="progress-fill" style="width:45%"></div></div></div>
-          <div class="monitor-card"><span>RAM Usage</span><strong>60%</strong><div class="progress"><div class="progress-fill" style="width:60%"></div></div></div>
-          <div class="monitor-card"><span>Disk Usage</span><strong>70%</strong><div class="progress"><div class="progress-fill" style="width:70%"></div></div></div>
-          <div class="monitor-card"><span>Network Usage</span><strong>35%</strong><div class="progress"><div class="progress-fill" style="width:35%"></div></div></div>
+          <div class="monitor-card"><span>CPU Usage</span><strong>45%</strong>
+            <div class="progress">
+              <div class="progress-fill" style="width:45%"></div>
+            </div>
+          </div>
+          <div class="monitor-card"><span>RAM Usage</span><strong>60%</strong>
+            <div class="progress">
+              <div class="progress-fill" style="width:60%"></div>
+            </div>
+          </div>
+          <div class="monitor-card"><span>Disk Usage</span><strong>70%</strong>
+            <div class="progress">
+              <div class="progress-fill" style="width:70%"></div>
+            </div>
+          </div>
+          <div class="monitor-card"><span>Network Usage</span><strong>35%</strong>
+            <div class="progress">
+              <div class="progress-fill" style="width:35%"></div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -151,11 +203,29 @@
         </div>
         <div class="table-card">
           <table>
-            <thead><tr><th>Report</th><th>Department</th><th>Date</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Report</th>
+                <th>Department</th>
+                <th>Date</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td>Monthly Usage</td><td>Analytics</td><td>2026-06-14</td></tr>
-              <tr><td>User Summary</td><td>Operations</td><td>2026-06-13</td></tr>
-              <tr><td>Server Health</td><td>Infrastructure</td><td>2026-06-12</td></tr>
+              <tr>
+                <td>Monthly Usage</td>
+                <td>Analytics</td>
+                <td>2026-06-14</td>
+              </tr>
+              <tr>
+                <td>User Summary</td>
+                <td>Operations</td>
+                <td>2026-06-13</td>
+              </tr>
+              <tr>
+                <td>Server Health</td>
+                <td>Infrastructure</td>
+                <td>2026-06-12</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -165,11 +235,29 @@
 
         <div class="table-card">
           <table>
-            <thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
             <tbody>
-              <tr><td>Admin User</td><td>admin@example.com</td><td>Admin</td></tr>
-              <tr><td>Manager One</td><td>manager@example.com</td><td>Manager</td></tr>
-              <tr><td>Analyst One</td><td>analyst@example.com</td><td>Employee</td></tr>
+              <tr>
+                <td>Admin User</td>
+                <td>admin@example.com</td>
+                <td>Admin</td>
+              </tr>
+              <tr>
+                <td>Manager One</td>
+                <td>manager@example.com</td>
+                <td>Manager</td>
+              </tr>
+              <tr>
+                <td>Analyst One</td>
+                <td>analyst@example.com</td>
+                <td>Employee</td>
+              </tr>
             </tbody>
           </table>
         </div>
@@ -192,4 +280,5 @@
   <div id="data-output" class="screen-reader-text"></div>
   <script src="app.js"></script>
 </body>
+
 </html>
