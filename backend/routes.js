@@ -98,12 +98,10 @@ router.get('/summary', async (req, res) => {
       }
     }
 
-    const totalStorageMb = parseFloat((totalStorageBytes / (1024 * 1024)).toFixed(2));
-
     res.json({
       totalUsers: users[0].totalUsers || 0,
       totalDatasets: datasets[0].totalDatasets || 0,
-      totalStorage: totalStorageMb,
+      totalStorage: totalStorageBytes,
       totalReports: reports[0].totalReports || 0,
       activeUsers: active[0].activeUsers || 0,
     });

@@ -160,16 +160,24 @@ async function fetchJson(path, options = {}) {
   return response.json();
 }
 
-function formatStorage(value) {
-  if (value == null || Number.isNaN(Number(value))) {
-    return '0 MB';
+function formatStorage(bytes) {
+  if (bytes == null || Number.isNaN(Number(bytes))) {
+    return '0 Bytes';
   }
-  const sizeMb = Number(value);
-  if (sizeMb >= 1024) {
-    const sizeGb = sizeMb / 1024;
+  const sizeBytes = Number(bytes);
+  if (sizeBytes >= 1024 * 1024 * 1024) {
+    const sizeGb = sizeBytes / (1024 * 1024 * 1024);
     return `${sizeGb.toFixed(1)} GB`;
   }
-  return `${sizeMb} MB`;
+  if (sizeBytes >= 1024 * 1024) {
+    const sizeMb = sizeBytes / (1024 * 1024);
+    return `${sizeMb.toFixed(1)} MB`;
+  }
+  if (sizeBytes >= 1024) {
+    const sizeKb = sizeBytes / 1024;
+    return `${sizeKb.toFixed(1)} KB`;
+  }
+  return `${sizeBytes} Bytes`;
 }
 
 async function loadSummary() {
