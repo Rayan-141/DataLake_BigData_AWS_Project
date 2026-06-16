@@ -56,6 +56,8 @@ function runCommand(cmd) {
 
 async function getServiceStatus() {
   const dockerRunning = process.env.DOCKER_RUNNING === 'true' || 
+                        process.env.RENDER === 'true' ||
+                        process.env.RENDER_SERVICE_ID ||
                         fs.existsSync('/.dockerenv') || 
                         fs.existsSync('/var/run/docker.sock') || 
                         await runCommand('docker info');
