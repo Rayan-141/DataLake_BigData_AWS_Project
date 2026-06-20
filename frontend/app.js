@@ -533,3 +533,33 @@ async function uploadDataset() {
 }
 
 setInterval(loadDatasets, 30000);
+
+function randomizeMetrics() {
+  const cpu = Math.floor(Math.random() * 40) + 20; // 20% to 60%
+  const ram = Math.floor(Math.random() * 30) + 50; // 50% to 80%
+  const disk = Math.floor(Math.random() * 5) + 68; // 68% to 73%
+  const net = Math.floor(Math.random() * 50) + 10; // 10% to 60%
+
+  const cpuVal = document.getElementById('cpuVal');
+  const cpuBar = document.getElementById('cpuBar');
+  const ramVal = document.getElementById('ramVal');
+  const ramBar = document.getElementById('ramBar');
+  const diskVal = document.getElementById('diskVal');
+  const diskBar = document.getElementById('diskBar');
+  const netVal = document.getElementById('netVal');
+  const netBar = document.getElementById('netBar');
+
+  if (cpuVal) cpuVal.textContent = `${cpu}%`;
+  if (cpuBar) cpuBar.style.width = `${cpu}%`;
+  if (ramVal) ramVal.textContent = `${ram}%`;
+  if (ramBar) ramBar.style.width = `${ram}%`;
+  if (diskVal) diskVal.textContent = `${disk}%`;
+  if (diskBar) diskBar.style.width = `${disk}%`;
+  if (netVal) netVal.textContent = `${net}%`;
+  if (netBar) netBar.style.width = `${net}%`;
+}
+
+// Randomize metrics every 3 seconds
+setInterval(randomizeMetrics, 3000);
+// Initial run
+randomizeMetrics();
