@@ -58,8 +58,6 @@
 - [Environment Variables](#-environment-variables)
 - [Security & IAM (RBAC)](#-security--iam-rbac)
 - [Limitations](#-limitations)
-- [Viva / Interview Q&A](#-viva--interview-qa)
-- [Future Improvements](#-future-improvements)
 - [Conclusion](#-conclusion)
 
 ---
