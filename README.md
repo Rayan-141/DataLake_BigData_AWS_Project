@@ -1,7 +1,7 @@
 <div align="center">
 
 <!-- FAVICON / LOGO -->
-<img src="https://raw.githubusercontent.com/Rayan-141/DataLake_BigData_AWS_Project/main/AWS%20DataLake%20Big%20Data-2026-06-21-071156.png" alt="DataLake Cloud Platform Logo" width="600"/>
+<img src="https://raw.githubusercontent.com/Rayan-141/DataLake_BigData_AWS_Project/main/frontend/favicon.svg" alt="DataLake Cloud Platform Logo" width="100" height="100"/>
 
 <br/>
 
