@@ -26,10 +26,7 @@ build/
 .vscode/
 .idea/
 
-# Screenshots
-*.png
-*.jpg
-*.jpeg
+
 
 backend/uploads/*
 backend/uploads/
