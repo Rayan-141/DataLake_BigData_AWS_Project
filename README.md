@@ -1,25 +1,47 @@
 <div align="center">
 
-# 🌊 DataLake Big Data Analytics Cloud Portal
+<!-- FAVICON / LOGO -->
+<img src="https://raw.githubusercontent.com/Rayan-141/DataLake_BigData_AWS_Project/main/AWS%20DataLake%20Big%20Data-2026-06-21-071156.png" alt="DataLake Cloud Platform Logo" width="600"/>
+
+<br/>
+
+# DataLake Big Data Analytics Cloud Portal
 
 ### A Full-Stack AWS Big Data Platform with Real-Time Dashboard, S3 Integration & DevOps Automation
 
-[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Render-46E3B7?style=for-the-badge)](https://datalake-aws-project.onrender.com/)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs)](https://nodejs.org/)
-[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql)](https://www.mysql.com/)
-[![AWS](https://img.shields.io/badge/AWS-Cloud-FF9900?style=for-the-badge&logo=amazonaws)](https://aws.amazon.com/)
-[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker)](https://www.docker.com/)
-[![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?style=for-the-badge&logo=terraform)](https://www.terraform.io/)
+<br/>
 
-</div>
+[![Live Demo](https://img.shields.io/badge/🌐_Live_Demo-Render-46E3B7?style=for-the-badge)](https://datalake-aws-project.onrender.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-339933?style=for-the-badge&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-8.0-4479A1?style=for-the-badge&logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![AWS](https://img.shields.io/badge/AWS-Cloud-FF9900?style=for-the-badge&logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
+[![Docker](https://img.shields.io/badge/Docker-Containerized-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Terraform](https://img.shields.io/badge/Terraform-IaC-7B42BC?style=for-the-badge&logo=terraform&logoColor=white)](https://www.terraform.io/)
+[![Kubernetes](https://img.shields.io/badge/Kubernetes-Orchestration-326CE5?style=for-the-badge&logo=kubernetes&logoColor=white)](https://kubernetes.io/)
+[![Jenkins](https://img.shields.io/badge/Jenkins-CI%2FCD-D24939?style=for-the-badge&logo=jenkins&logoColor=white)](https://www.jenkins.io/)
+
+<br/>
 
 ---
 
+**Author:** Rayan Rawat &nbsp;·&nbsp; **Roll No:** 150096724141 &nbsp;·&nbsp; **Cohort:** Mark Zuckerberg
+
+**Subject:** AWS &nbsp;·&nbsp; **GitHub:** [Rayan-141](https://github.com/Rayan-141) &nbsp;·&nbsp; **Live Link:** [datalake-aws-project.onrender.com](https://datalake-aws-project.onrender.com/)
+
+---
+
+</div>
+
 ## 📖 Table of Contents
 
+- [Problem Statement](#-problem-statement)
+- [Existing System & Problems](#-existing-system--problems)
+- [Proposed Solution](#-proposed-solution)
 - [Overview](#-overview)
 - [Live Demo](#-live-demo)
-- [Architecture](#-architecture)
+- [Architecture Diagram](#-architecture-diagram)
+- [AWS Services Used](#-aws-services-used)
+- [Problem → Solution Flow](#-problem--solution-flow)
 - [Features](#-features)
 - [Tech Stack](#-tech-stack)
 - [Project Structure](#-project-structure)
@@ -35,8 +57,82 @@
 - [Backup & Scripts](#-backup--scripts)
 - [Environment Variables](#-environment-variables)
 - [Security & IAM (RBAC)](#-security--iam-rbac)
+- [Limitations](#-limitations)
 - [Viva / Interview Q&A](#-viva--interview-qa)
 - [Future Improvements](#-future-improvements)
+- [Conclusion](#-conclusion)
+
+---
+
+## ❗ Problem Statement
+
+> **Industry:** Big Data & Analytics Platform  
+> **Case Study:** 114 — DataLake Big Data Analytics Cloud
+
+The **DataLake Big Data Analytics Cloud** project addresses the critical challenges faced by organizations that still manage datasets using **traditional local systems**.
+
+The existing system relies on:
+- 🗂️ Local file storage (prone to data loss)
+- 📊 Manual data management via spreadsheets
+- 🚫 No centralized dashboard or monitoring
+- 🔓 Weak security with no cloud access control
+
+Organizations require a **centralized cloud platform** that provides secure file storage, centralized data management, infrastructure monitoring, user access control, alerts, and a web-based dashboard accessible from **anywhere in the world**.
+
+---
+
+## 🔴 Existing System & Problems
+
+### How the Old System Worked
+
+| Area | Problem |
+|------|---------|
+| **File Storage** | Files stored on local computers — lost if the computer crashes |
+| **Dashboard** | No centralized dashboard — administrators cannot manage everything from one place |
+| **Monitoring** | CPU, Memory, Disk, and Network usage cannot be monitored |
+| **Alerts** | No alert system — administrators are not notified when server resources spike |
+| **Security** | Limited security — no centralized user and permission management |
+| **Dataset Management** | Uploading, downloading, and managing datasets is manual and difficult |
+| **Accessibility** | Application cannot be accessed remotely |
+| **Deployment** | Deploying the application requires manual setup on every machine |
+| **Database** | Local database with no centralized cloud storage |
+| **Data Sharing** | Done manually without version control |
+
+---
+
+## ✅ Proposed Solution
+
+The proposed solution is to build a **centralized DataLake Big Data Analytics Cloud Platform** using AWS services and a web-based dashboard. The platform securely stores datasets, monitors infrastructure, manages users, and provides centralized access through a live cloud application.
+
+### Solution Highlights
+
+| AWS Service / Tool | Role |
+|--------------------|------|
+| **Amazon S3** | Secure cloud storage for uploaded datasets |
+| **AWS IAM** | Secure access and permission management |
+| **MySQL** | Centralized database for users, reports, and dataset metadata |
+| **Amazon CloudWatch** | Infrastructure monitoring (CPU, Memory, Disk, Network) |
+| **CloudWatch Alarms** | Detects high resource usage and generates alerts |
+| **Amazon SNS** | Sends alert notifications to administrators |
+| **Docker** | Containerized application deployment |
+| **GitHub** | Source code management and version control |
+| **Render** | Live cloud hosting for the web application |
+| **Web Dashboard** | Centralized management for datasets, monitoring, reports, users, and infrastructure |
+
+### Before vs After
+
+| Previously (Existing System) | Now (Proposed Solution) |
+|------------------------------|------------------------|
+| Files stored on local desktops | Files are securely stored in **Amazon S3** |
+| Application depended on a single local system | Application hosted on **cloud server (EC2 / Render)** |
+| No centralized dashboard | **Web Dashboard** manages datasets and monitoring from one place |
+| No monitoring of server resources | **CloudWatch** monitors CPU, Memory, Disk, and Network usage |
+| No alert system | **CloudWatch Alarms** generate alerts for resource issues |
+| Admins not notified about problems | **Amazon SNS** sends alert notifications to administrators |
+| No secure cloud access | **AWS IAM** provides secure user access and permissions |
+| Dataset info difficult to manage | **MySQL Database** stores dataset details and application data |
+| Manual and time-consuming deployment | **Docker** simplifies application deployment |
+| Cannot be accessed remotely | **Render** hosts the app with a live public URL |
 
 ---
 
@@ -60,6 +156,7 @@ This project demonstrates a complete **enterprise-level cloud data engineering w
 > **🚀 Website Live Link:** [https://datalake-aws-project.onrender.com/](https://datalake-aws-project.onrender.com/)
 
 **Default Login Credentials:**
+
 | Field | Value |
 |-------|-------|
 | Username | `admin` |
@@ -67,9 +164,20 @@ This project demonstrates a complete **enterprise-level cloud data engineering w
 
 ---
 
-## 🏗️ Architecture
+## 🏗️ Architecture Diagram
 
-### High-Level AWS Architecture
+<div align="center">
+
+![AWS DataLake Architecture](https://raw.githubusercontent.com/Rayan-141/DataLake_BigData_AWS_Project/main/AWS%20DataLake%20Big%20Data-2026-06-21-071156.png)
+
+</div>
+
+### Interactive Mermaid Diagrams
+
+- 🔗 [Architecture Diagram 1 (Mermaid)](https://mermaid.ai/d/3b3f2a37-0cfb-4de0-83a2-3f4ae8b5688d)
+- 🔗 [Architecture Diagram 2 (Mermaid Live)](https://mermaid.live/edit#pako:eNrVWuty4jgWfhWVu2Y6XQtpzCUQkkmVsc3ADpAsJkn1NvtDGBE0MZZXlpPQt9qHmCeYR9sn2SMZG5tA72wNVLF0VQcdy0fSuXw650s-ay6bEq2pFYvFsS-o8EgTjTXj3kEWFriHHwn6979-Qy36oATI8LG3FNQNkemxaIpOnGUoyAIZ3J1TQVwRcfJurI19pXDmsWd3jrlAI2vsj_0ffkA__YmPUuDY5qh7PUC62phxc9PrmoaSGEOz0x3B49uhvYe1wmjywHEwl2t8HGuXU_qEQrH0yE9vZ8wXxZB-Is1yKXi5UMNnQh_motkolS4EeRFF7NEHv-kSXxB-scD8gfrFCROCLZq6fOntlREEHnWxoMzP2e_yPSx1Ndb-MfYRfKaUg1xOGrWkEaXMsPrdwcnOXem1jV3V_8CuqvGmpgvq01BwLBiPd7JjjTLMf63TZR7jzTfVeq12dg76egyWQFFI_Qd0TyaoxdlzSHh6xnfJkTrXzujkAAcaEn9K-CpcOywUsJN9nIs-EXQ77DXRJb2aQmp4kCtF_BwWA85-BYedMp-rpU9dtrh8T6-SI6cnbg-vByN7YB3CjW0Or8HyezhpZ9TvQa7)
+
+### Text Architecture Overview
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
@@ -81,47 +189,95 @@ This project demonstrates a complete **enterprise-level cloud data engineering w
                     └──────┬──────┘
                            │
                     ┌──────▼──────┐
-                    │   NGINX     │  Reverse Proxy / Load Balancer
+                    │   NGINX     │  Reverse Proxy (Port 80 → 3000)
                     └──────┬──────┘
                            │
               ┌────────────▼─────────────┐
               │      AWS EC2 Instance    │
               │   (t3.micro, us-east-1)  │
-              │                          │
+              │   Elastic IP: 44.208.74  │
               │  ┌────────────────────┐  │
               │  │  Node.js Express   │  │  Port 3000
               │  │  (Backend + API)   │  │
               │  └────────┬───────────┘  │
               └───────────┼──────────────┘
                           │
-           ┌──────────────┼──────────────────┐
-           │              │                  │
-    ┌──────▼──────┐ ┌─────▼──────┐  ┌───────▼──────┐
-    │  AWS RDS    │ │  AWS S3    │  │  CloudWatch   │
-    │  MySQL 8.0  │ │  Bucket    │  │  Monitoring   │
-    │  (datalake) │ │  (Reports  │  │  CPU/Mem/Disk │
-    └─────────────┘ │  Datasets) │  └──────────────┘
-                    └────────────┘
+           ┌──────────────┼───────────────────┐
+           │              │                   │
+    ┌──────▼──────┐ ┌─────▼──────┐  ┌────────▼──────┐
+    │  MySQL RDS  │ │  AWS S3    │  │  CloudWatch    │
+    │  (datalake) │ │  Bucket    │  │  + Alarms      │
+    │  Users      │ │  Datasets  │  │  CPU/Mem/Disk  │
+    │  Reports    │ │  Reports   │  │       │        │
+    │  Tasks      │ │  Backups   │  │  ┌────▼────┐   │
+    └─────────────┘ └────────────┘  │  │  SNS    │   │
+                                    │  │ Alerts  │   │
+                                    │  └─────────┘   │
+                                    └────────────────┘
 ```
 
-### Architecture Diagram Links
+---
 
-- 🔗 [Architecture Diagram 1 (Mermaid)](https://mermaid.ai/d/3b3f2a37-0cfb-4de0-83a2-3f4ae8b5688d)
-- 🔗 [Architecture Diagram 2 (Mermaid Live)](https://mermaid.live/edit#pako:eNrVWuty4jgWfhWVu2Y6XQtpzCUQkkmVsc3ADpAsJkn1NvtDGBE0MZZXlpPQt9qHmCeYR9sn2SMZG5tA72wNVLF0VQcdy0fSuXw650s-ay6bEq2pFYvFsS-o8EgTjTXj3kEWFriHHwn6979-Qy36oATI8LG3FNQNkemxaIpOnGUoyAIZ3J1TQVwRcfJurI19pXDmsWd3jrlAI2vsj_0ffkA__YmPUuDY5qh7PUC62phxc9PrmoaSGEOz0x3B49uhvYe1wmjywHEwl2t8HGuXU_qEQrH0yE9vZ8wXxZB-Is1yKXi5UMNnQh_motkolS4EeRFF7NEHv-kSXxB-scD8gfrFCROCLZq6fOntlREEHnWxoMzP2e_yPSx1Ndb-MfYRfKaUg1xOGrWkEaXMsPrdwcnOXem1jV3V_8CuqvGmpgvq01BwLBiPd7JjjTLMf63TZR7jzTfVeq12dg76egyWQFFI_Qd0TyaoxdlzSHh6xnfJkTrXzujkAAcaEn9K-CpcOywUsJN9nIs-EXQ77DXRJb2aQmp4kCtF_BwWA85-BYedMp-rpU9dtrh8T6-SI6cnbg-vByN7YB3CjW0Or8HyezhpZ9TvQa7)
+## ☁️ AWS Services Used
+
+### 1. Amazon EC2 (Elastic Compute Cloud)
+- **Why Used?** To host the application on a cloud server
+- **Where Used?** Backend server
+- **Purpose:** Runs the Node.js application in the cloud instead of a local machine
+
+### 2. Amazon S3 (Simple Storage Service)
+- **Why Used?** To store uploaded datasets securely
+- **Where Used?** Dataset Upload section
+- **Purpose:** Keeps files safe, scalable, and easily accessible from anywhere
+
+### 3. AWS IAM (Identity & Access Management)
+- **Why Used?** To secure AWS resources
+- **Where Used?** AWS Account-level access control
+- **Purpose:** Controls who can access AWS services and what actions they can perform
+
+### 4. Amazon CloudWatch
+- **Why Used?** To monitor infrastructure health
+- **Where Used?** Monitoring Dashboard
+- **Purpose:** Shows server metrics including CPU Usage, Memory Usage, Disk Usage, Network Usage
+
+### 5. Amazon CloudWatch Alarms
+- **Why Used?** To detect abnormal resource usage and trigger alerts
+- **Where Used?** Monitoring & Alerting System
+- **Purpose:** Displays alerts when CPU, Memory, Disk, or Network usage becomes high
+
+### 6. Amazon SNS (Simple Notification Service)
+- **Why Used?** To send alert notifications to administrators
+- **Where Used?** Alert Notification System
+- **Purpose:** Delivers Email Notifications, SMS Notifications, and Administrator Alerts
+
+---
+
+## 🔄 Problem → Solution Flow
+
+```
+  Local File Storage        ──►   Amazon S3 Storage
+  No Monitoring             ──►   CloudWatch Monitoring
+  No Alerts                 ──►   CloudWatch Alarms
+  No Notifications          ──►   Amazon SNS
+  No Secure Access          ──►   AWS IAM
+  No Central Dashboard      ──►   Web Dashboard
+  Manual Deployment         ──►   Docker + Render
+  Scattered Data            ──►   MySQL Database
+```
 
 ---
 
 ## ✨ Features
 
 ### 🖥️ Dashboard
-- **Real-time KPI Cards** — Total Users, Datasets, Storage (from S3), Reports
+- **Real-time KPI Cards** — Total Users, Datasets, Storage (live from S3), Reports
 - **Live Activity Feed** — Recent uploads, logins, and system events
 - **Infrastructure Status Panel** — Docker, Jenkins, Kubernetes, Prometheus, Grafana — all live
-- **Website Monitoring** — Simulated live metrics (response time, uptime, requests/sec, error rate)
+- **Website Monitoring** — Dynamic live metrics (response time, uptime, requests/sec, error rate)
 
 ### 📁 Dataset Management
 - Upload datasets (CSV, Excel, JSON, etc.) directly to **AWS S3**
-- List all uploaded files with name, date, and S3 key
+- List all uploaded files with filename, upload date, and S3 key
 - **Download** files directly from S3 via the browser
 - **Delete** files from both S3 and the database simultaneously
 
@@ -131,7 +287,7 @@ This project demonstrates a complete **enterprise-level cloud data engineering w
 
 ### 📋 Reports
 - Create and list reports per department
-- Upload reports directly to S3 with auto-generated keys
+- Upload reports directly to S3 with auto-generated timestamped keys
 
 ### ✅ Task Management
 - Create tasks, assign to users, and track status: `open`, `in-progress`, `completed`
@@ -157,6 +313,7 @@ This project demonstrates a complete **enterprise-level cloud data engineering w
 | **Monitoring** | AWS CloudWatch Agent |
 | **Logging** | Winston (structured JSON logs) |
 | **File Uploads** | Multer + Multer-S3 |
+| **Notifications** | Amazon SNS |
 | **Deployment (Live)** | Render.com (Docker-based) |
 
 ---
@@ -215,6 +372,9 @@ DataLake_BigData_AWS_Project/
 │   ├── variables.auto.tfvars       # Auto-loaded variable values
 │   └── variables.tf                # Variable definitions
 │
+├── 📄 AWS DataLake Big Data-2026-06-21-071156.png   # Architecture Diagram
+├── 📄 DataLake Big Data Analytics Cloud Infrastructure Documentation - Rayan.pdf
+├── 📄 DataLake Big Data Analytics Cloud Infrastructure Documentation - Rayan.docx
 ├── docker-compose.yml              # Local dev: MySQL + Backend containers
 ├── Dockerfile                      # Root-level Docker build (Render deploy)
 ├── .gitignore
@@ -291,7 +451,7 @@ Live:   https://datalake-aws-project.onrender.com/api
 
 | Method | Endpoint | Description |
 |--------|----------|-------------|
-| `GET` | `/api/summary` | Dashboard totals (users, datasets, storage from S3, reports) |
+| `GET` | `/api/summary` | Dashboard totals (users, datasets, live S3 storage, reports) |
 | `GET` | `/api/services` | Live status of Docker, Jenkins, Kubernetes, Prometheus, Grafana |
 | `GET` | `/api/health` | Simple health check → `{ status: "UP" }` |
 
@@ -351,7 +511,7 @@ Live:   https://datalake-aws-project.onrender.com/api
 ### Step 1 — Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/DataLake_BigData_AWS_Project.git
+git clone https://github.com/Rayan-141/DataLake_BigData_AWS_Project.git
 cd DataLake_BigData_AWS_Project
 ```
 
@@ -416,6 +576,7 @@ docker compose up --build
 ```
 
 This starts:
+
 | Service | Container | Port |
 |---------|-----------|------|
 | MySQL 8.0 | `mysql-container` | `3307` (host) → `3306` (container) |
@@ -431,8 +592,6 @@ docker build -t datalake-backend .
 ```
 
 ### Environment for Docker Compose
-
-Use these values in `backend/.env` when running via Docker Compose:
 
 ```env
 DB_HOST=mysql
@@ -458,6 +617,7 @@ This project is architected to map cleanly to the following AWS services:
 | **Security Groups** | Firewall: allows SSH (22), HTTP (80), HTTPS (443) |
 | **IAM** | Role-based access for admin, manager, analyst |
 | **CloudWatch** | Monitors CPU, memory, disk usage with 60s intervals |
+| **SNS** | Sends email/SMS alert notifications |
 | **Route 53** | Optional DNS management |
 
 ### Quick Manual Deploy to EC2
@@ -542,7 +702,7 @@ kubectl get services
 
 ### What the Manifests Define
 
-**`k8s/deployment.yaml`** — Deploys 2 replicas of `datalake-app:latest` on port `3000` with env vars for DB connection.
+**`k8s/deployment.yaml`** — Deploys **2 replicas** of `datalake-app:latest` on port `3000` with environment variables for DB connection.
 
 **`k8s/service.yaml`** — Exposes the deployment as a Kubernetes Service.
 
@@ -668,68 +828,41 @@ The system implements **3 user roles** mapped to AWS IAM concepts:
 
 ---
 
-## 🎓 Viva / Interview Q&A
+## ⚠️ Limitations
 
-**Q: Why use EC2 instead of Lambda for the backend?**
-> EC2 gives persistent, always-on hosting ideal for an Express.js server that handles database connections, file uploads, and long-running processes. Lambda is better for stateless, event-driven functions.
-
-**Q: Why MySQL/RDS instead of DynamoDB?**
-> The data model (users, departments, reports, tasks) is highly relational with foreign key relationships. MySQL on RDS gives ACID compliance, SQL querying, and managed backups — perfect for structured analytics metadata.
-
-**Q: How does S3 fit into a Data Lake architecture?**
-> S3 is the backbone of AWS data lakes. Raw data files (CSV, JSON, Parquet) are stored in S3 at low cost with infinite scale. AWS services like Glue, Athena, and EMR can then query and process data directly from S3.
-
-**Q: What is the role of Terraform in this project?**
-> Terraform implements Infrastructure as Code (IaC). It provisions the entire AWS environment (VPC, EC2, RDS, S3, Security Groups) reproducibly. Any team member can run `terraform apply` and get an identical infrastructure.
-
-**Q: How does Docker help in this project?**
-> Docker containers ensure the Node.js app runs identically in development, testing, and production — eliminating "works on my machine" problems. Docker Compose orchestrates the multi-container local dev environment (app + MySQL).
-
-**Q: Why Jenkins for CI/CD?**
-> Jenkins automates the pipeline: code push → install dependencies → run tests → build Docker image → deploy to EC2. This removes manual deployment steps and ensures every push is tested and built consistently.
-
-**Q: How does CloudWatch monitor the application?**
-> The CloudWatch Agent runs on the EC2 instance and ships CPU, memory, and disk usage metrics to AWS CloudWatch every 60 seconds. Alarms can be configured to trigger SNS notifications or Auto Scaling actions.
-
-**Q: What is RBAC and how is it implemented?**
-> Role-Based Access Control (RBAC) assigns permissions based on user roles (admin, manager, analyst). In this project, it's implemented at the database level (role column in users table) and can be enforced at the API layer via middleware.
-
-**Q: Why use Kubernetes in addition to Docker Compose?**
-> Docker Compose is for local development. Kubernetes provides production-grade features: auto-healing (restarts crashed pods), horizontal scaling (2+ replicas), rolling deployments (zero downtime), and load balancing across pods.
-
-**Q: How does the S3 storage metric work on the dashboard?**
-> The `/api/summary` endpoint calls `ListObjectsV2Command` on the S3 bucket, iterates over all objects, sums their `Size` fields in bytes, and returns the total. The frontend converts bytes to MB/GB for display.
+- Uses **MySQL** instead of Amazon RDS (for local dev)
+- **CloudWatch metrics** are simulated for demonstration purposes
+- **CloudWatch Alarms** and **Amazon SNS** are implemented as project concepts, not full real-time integration
+- Does not include **Auto Scaling** or a **Load Balancer**
+- Supports a **single-region deployment** only
+- Advanced enterprise security features are not implemented
 
 ---
 
-## 🔮 Future Improvements
 
-- [ ] Add JWT authentication with session management
-- [ ] Add NGINX reverse proxy with SSL termination (Let's Encrypt)
-- [ ] Implement AWS Glue + Athena for serverless SQL querying on S3 data
-- [ ] Add Amazon EMR for Apache Spark big data processing
-- [ ] Ship application logs from Winston to CloudWatch Logs
-- [ ] Add CloudWatch Alarms with SNS email/SMS notifications
-- [ ] Implement S3 lifecycle rules (move old files to Glacier)
-- [ ] Add automated Jest unit tests for API routes
-- [ ] Complete the Jenkins Deploy stage with real EC2 SSH or `kubectl` commands
-- [ ] Add Prometheus + Grafana for custom dashboards
-- [ ] Implement database migrations with a tool like Flyway or Liquibase
-- [ ] Add frontend forms for all CRUD workflows (departments, tasks)
-- [ ] Enable S3 bucket versioning for dataset history
 
----
+## 📝 Conclusion
 
-## 👨‍💻 Author
+The **DataLake Big Data Analytics Cloud** project provides a **secure and centralized cloud platform** for managing datasets at scale. It uses:
 
-**Rayan**
-- 🌐 Live Project: [https://datalake-aws-project.onrender.com/](https://datalake-aws-project.onrender.com/)
-- 📁 Repository: DataLake Big Data AWS Project
+- **Amazon S3** for scalable, secure file storage
+- **AWS IAM** for role-based security
+- **CloudWatch** for infrastructure monitoring
+- **CloudWatch Alarms and Amazon SNS** for alerting concepts
+- **Docker and Render** for containerized, live deployment
+- **MySQL** for centralized structured data management
+
+The project successfully improves **data storage, monitoring, security, and accessibility** compared to the existing local system, while providing a strong foundation for future cloud enhancements with services like AWS Glue, Athena, EMR, and Auto Scaling.
 
 ---
 
 <div align="center">
 
-**Built with ❤️ using Node.js · MySQL · AWS · Docker · Terraform · Kubernetes · Jenkins**
+---
+
+**Author:** Rayan Rawat &nbsp;·&nbsp; **Roll No:** 150096724141 &nbsp;·&nbsp; **Cohort:** Mark Zuckerberg
+
+**Subject:** AWS &nbsp;·&nbsp; **GitHub:** [Rayan-141](https://github.com/Rayan-141) &nbsp;·&nbsp; **Live:** [datalake-aws-project.onrender.com](https://datalake-aws-project.onrender.com/)
+
 
 </div>
